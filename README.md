@@ -38,6 +38,20 @@ The application implements role-based dashboards across four key profiles:
 
 ---
 
+## NewGen City citizen portal
+
+This deployment branch also contains the separate NewGen City citizen portal:
+`frontend/` is its React/Vite website, `backend/` is its Express API, and
+`database/schema.sql` initializes its PostgreSQL database. To deploy this
+portal from this branch, set the Vercel project root to `frontend/`. Create the
+API service from the root `render.yaml` Blueprint and configure
+`DATABASE_URL`, `FRONTEND_ORIGIN`, and `OPS_API_TOKEN` in Render; then set
+`VITE_API_URL` in the Vercel project to the Render API URL. Never commit
+deployment secrets. The existing NextGen City app at the repository root is
+kept unchanged.
+
+---
+
 ## 🚀 Getting Started & Local Development
 
 ### 1. Install Dependencies
