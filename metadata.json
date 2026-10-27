@@ -1,0 +1,6 @@
+{
+  "name": "NextGen City",
+  "description": "MoHUA & NUDM compliant Smart City Integrated Command and Control Centre powered by CivicPulse Core AI 5-Agent Autonomous Decision Engine.",
+  "requestFramePermissions": ["geolocation", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
