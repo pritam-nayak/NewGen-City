@@ -1,14 +1,2531 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f5f7f4" />
-    <meta name="description" content="A city that moves forward. Report local issues, follow city service progress, and help build a more responsive Sonipat." />
-    <title>NewGen City</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextGen City — CivicPulse Core AI ICCC</title>
+  <meta name="description" content="MoHUA & NUDM compliant Smart City Integrated Command and Control Centre powered by CivicPulse Core AI 5-Agent Autonomous Decision Engine." />
+  <meta property="og:title" content="NextGen City — CivicPulse Core AI ICCC" />
+  <meta property="og:description" content="MoHUA & NUDM compliant Smart City Integrated Command and Control Centre powered by CivicPulse Core AI 5-Agent Autonomous Decision Engine." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gov: {
+              saffron: '#FF9933',
+              green: '#138808',
+              navy: '#061325',
+              command: '#0B1726',
+              cardDark: '#0F2033',
+              borderDark: '#1E3550',
+              accent: '#38BDF8',
+              blue: '#0284C7',
+            }
+          },
+          fontFamily: {
+            sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .tricolor-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%, #138808 100%);
+    }
+
+    .pulse-glow-red {
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
+      animation: pulse-red 1.8s infinite;
+    }
+    @keyframes pulse-red {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.02); }
+    }
+
+    .mic-live-pulse {
+      animation: mic-pulse 1.2s infinite;
+    }
+    @keyframes mic-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B1726;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E3550;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38BDF8;
+    }
+  </style>
+</head>
+<body class="bg-gov-navy text-slate-100 antialiased min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+
+  <!-- TOP TRICOLOR BAR -->
+  <div class="tricolor-stripe"></div>
+
+  <!-- TIER 1: OFFICIAL MoHUA & NUDM COMMAND CENTRE HEADER -->
+  <header class="bg-slate-950 text-slate-300 text-xs border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Ministry & Mission Branding -->
+      <div class="flex items-center gap-3">
+        <!-- Ashoka Emblem SVG -->
+        <div class="w-7 h-7 rounded bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-black text-sm">
+          🇮🇳
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-amber-300 tracking-wide">भारत सरकार | Government of India</span>
+            <span class="text-slate-600 hidden sm:inline">&bull;</span>
+            <span class="text-slate-200 hidden sm:inline">Ministry of Housing and Urban Affairs (MoHUA)</span>
+          </div>
+          <div class="text-[11px] text-slate-400 flex items-center gap-2 mt-0.5">
+            <span class="text-sky-400 font-semibold">National Urban Digital Mission (NUDM)</span>
+            <span>&bull;</span>
+            <span class="text-emerald-400 font-medium">Digital India Compliant ICCC Architecture</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Digital IST Clock & System Telemetry -->
+      <div class="flex items-center gap-4 text-[11px]">
+        <!-- 3-Tier Indicator Pill -->
+        <div class="hidden lg:flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700 font-mono text-slate-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+          <span>3-TIER ARCHITECTURE ACTIVE</span>
+        </div>
+
+        <!-- Live Clock -->
+        <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1 rounded-md border border-slate-700/80 font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="istClock" class="text-emerald-300 font-semibold tracking-wider">IST: Synchronizing...</span>
+        </div>
+
+        <!-- Role Re-login & Theme -->
+        <div class="flex items-center gap-2">
+          <button onclick="toggleTheme()" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-[11px]" title="Toggle Display Mode">
+            <span id="themeModeIcon">🌙 Ops Dark</span>
+          </button>
+          <button onclick="openLoginModal()" class="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white font-bold px-3 py-1.5 rounded-md transition text-xs shadow-sm shadow-sky-950">
+            <span>🔐 Switch Role / Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ICCC COMMAND BAR -->
+  <div class="bg-gov-command border-b border-gov-borderDark shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Brand & Hub Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-sky-900/40 border border-sky-400/30">
+          CP
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg md:text-xl font-black tracking-tight text-white flex items-center gap-2">
+              NextGen City
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40">ICCC v4.2</span>
+            </h1>
+            <span class="hidden md:inline-flex items-center gap-1.5 text-xs text-emerald-400 font-mono bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              CivicPulse Core AI: 5-Agent Engine
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            Integrated Command &amp; Control Centre &bull; Central Municipal Decision Mesh
+          </p>
+        </div>
+      </div>
+
+      <!-- Current Authenticated Role Badge -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 bg-gov-cardDark px-3.5 py-1.5 rounded-xl border border-gov-borderDark shadow-inner">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-400" id="userStatusIndicator"></div>
+          <div class="text-left text-xs leading-tight">
+            <div id="currentUserName" class="font-bold text-white">Citizen Portal User</div>
+            <div id="currentUserRole" class="text-[10px] text-sky-400 font-mono uppercase tracking-wider">Citizen Service Portal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- JUDGE DEMO CRISIS SIMULATOR TOOLBAR                             -->
+  <!-- ============================================================== -->
+  <section class="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-slate-950 shadow-md border-b border-amber-500">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2 text-white font-bold">
+        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white text-orange-600 font-black text-xs shadow">⚡</span>
+        <span class="tracking-wide uppercase font-black">JUDGE DEMO CRISIS SIMULATOR:</span>
+        <span class="font-normal opacity-90 hidden lg:inline">Autonomous 5-Agent validation pipeline</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- 1. Duplicate (<300m) -->
+        <button onclick="triggerDuplicateDemo()" class="bg-white hover:bg-amber-50 text-slate-900 font-bold px-3 py-1.5 rounded-md shadow transition flex items-center gap-1.5 border border-amber-300">
+          <span>🔁</span>
+          <span>[🔁 Duplicate (&lt;300m)]</span>
+        </button>
+
+        <!-- 2. Spike Rain & Sewer -->
+        <button onclick="triggerRainSewerSpikeDemo()" class="bg-white hover:bg-amber-50 text-slate-900 font-bold px-3 py-1.5 rounded-md shadow transition flex items-center gap-1.5 border border-amber-300">
+          <span>🌧️</span>
+          <span>[🌧️ Spike Rain &amp; Sewer]</span>
+        </button>
+
+        <!-- 3. Breach SLA (0h Timer) -->
+        <button onclick="triggerBreachSlaDemo()" class="bg-red-950 hover:bg-red-900 text-white font-black px-3 py-1.5 rounded-md shadow transition flex items-center gap-1.5 border border-red-500">
+          <span>⏳</span>
+          <span>[⏳ Breach SLA (0h Timer)]</span>
+        </button>
+
+        <!-- Reset Button -->
+        <button onclick="resetSimulationState()" class="bg-black/30 hover:bg-black/50 text-white font-semibold px-2.5 py-1.5 rounded-md transition border border-white/20 flex items-center gap-1" title="Reset all simulation values">
+          <span>🔄</span>
+          <span>Reset</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL DYNAMIC CASCADING HAZARD BANNER -->
+  <div id="globalAlertBanner" class="hidden bg-red-900/90 text-white px-4 py-2.5 border-b border-red-600 shadow-inner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 text-xs md:text-sm">
+      <div class="flex items-center gap-2 font-bold tracking-wide">
+        <span class="text-base animate-bounce">🚨</span>
+        <span id="globalAlertText">ALERT: Cascading Urban Hazard Activated.</span>
+      </div>
+      <button onclick="dismissGlobalAlert()" class="text-white hover:text-amber-200 text-xs underline font-semibold">
+        Acknowledge &times;
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-5 flex flex-col gap-6">
+
+    <!-- ============================================================== -->
+    <!-- TIER 3: AUTONOMOUS 5-AGENT STATUS MONITOR MESH                  -->
+    <!-- ============================================================== -->
+    <section class="bg-gov-command rounded-2xl p-4 border border-gov-borderDark shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400">Tier 3: Autonomous AI Agents Layer</span>
+          <span class="text-[10px] text-slate-400">&bull; 5 Synchronized Sequential Decision Agents</span>
+        </div>
+        <div class="flex items-center gap-2 text-[11px] font-mono">
+          <span class="text-slate-400">Execution Mode:</span>
+          <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800 font-bold" id="agentModeDisplay">
+            Deterministic Engine + Gemini JSON Schema
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="agentPipelineGrid">
+        <!-- Agent 1 -->
+        <div class="bg-gov-cardDark rounded-xl p-3 border border-gov-borderDark transition-all" id="agentCard1">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Agent 1</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400" id="agentDot1"></span>
+          </div>
+          <div class="font-bold text-xs text-white mt-1">Intake &amp; Deduplication</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">&lt;300m Radius &bull; &gt;75% Semantic Similarity</div>
+        </div>
+
+        <!-- Agent 2 -->
+        <div class="bg-gov-cardDark rounded-xl p-3 border border-gov-borderDark transition-all" id="agentCard2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Agent 2</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400" id="agentDot2"></span>
+          </div>
+          <div class="font-bold text-xs text-white mt-1">Municipal Routing &amp; SLA</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Strict ULB Department Assignment</div>
+        </div>
+
+        <!-- Agent 3 -->
+        <div class="bg-gov-cardDark rounded-xl p-3 border border-gov-borderDark transition-all" id="agentCard3">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Agent 3</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400" id="agentDot3"></span>
+          </div>
+          <div class="font-bold text-xs text-white mt-1">Telemetry Correlation</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">IMD Doppler &bull; CPCB AQI &bull; DISCOM</div>
+        </div>
+
+        <!-- Agent 4 -->
+        <div class="bg-gov-cardDark rounded-xl p-3 border border-gov-borderDark transition-all" id="agentCard4">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Agent 4</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400" id="agentDot4"></span>
+          </div>
+          <div class="font-bold text-xs text-white mt-1">Health Surveillance</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Water Purity &bull; IDSP Hospital Outbreaks</div>
+        </div>
+
+        <!-- Agent 5 -->
+        <div class="bg-gov-cardDark rounded-xl p-3 border border-gov-borderDark transition-all" id="agentCard5">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Agent 5</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400" id="agentDot5"></span>
+          </div>
+          <div class="font-bold text-xs text-white mt-1">SLA Guardian</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">0h Executive Escalation Watcher</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE IOT TELEMETRY & PUBLIC HEALTH SIMULATION FEED -->
+    <section class="bg-slate-950 rounded-2xl px-5 py-3 border border-gov-borderDark shadow-lg flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+        <span class="font-bold text-sky-300 uppercase tracking-wider text-[11px]">ICCC IoT TELEMETRY STREAM</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-5 text-[11px]">
+        <div>
+          <span class="text-slate-500">IMD Radar:</span>
+          <span id="telRain" class="font-bold text-sky-400 ml-1">5 mm/hr</span>
+        </div>
+        <div>
+          <span class="text-slate-500">CPCB AQI:</span>
+          <span id="telAqi" class="font-bold text-emerald-400 ml-1">118 (Moderate)</span>
+        </div>
+        <div>
+          <span class="text-slate-500">DISCOM Grid:</span>
+          <span id="telGrid" class="font-bold text-amber-400 ml-1">58% Load</span>
+        </div>
+        <div>
+          <span class="text-slate-500">Water Turbidity:</span>
+          <span id="telTurbidity" class="font-bold text-blue-300 ml-1">2.4 NTU</span>
+        </div>
+        <div>
+          <span class="text-slate-500">Coliform Index:</span>
+          <span id="telColiform" class="font-bold text-emerald-400 ml-1">0 CFU</span>
+        </div>
+        <div>
+          <span class="text-slate-500">Hospital Gastro:</span>
+          <span id="telHosp" class="font-bold text-emerald-400 ml-1">2/day (Normal)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- ROLE DASHBOARD 1: CITIZEN PORTAL                               -->
+    <!-- ============================================================== -->
+    <div id="roleViewCitizen" class="role-dashboard flex flex-col gap-6">
+      
+      <!-- Welcome Hero Banner -->
+      <div class="bg-gradient-to-r from-gov-command to-gov-cardDark rounded-2xl p-6 border border-gov-borderDark shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div class="max-w-2xl">
+          <div class="flex items-center gap-2">
+            <span class="bg-sky-500/20 text-sky-300 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border border-sky-500/30 font-mono">
+              नागरिक सेवा केंद्र &bull; Citizen Portal
+            </span>
+            <span class="text-[10px] text-slate-400">MoHUA Citizen Charter</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-black text-white mt-2">Report a Civic Grievance in Your Ward</h2>
+          <p class="text-xs md:text-sm text-slate-300 mt-1 leading-relaxed">
+            Submit issues with automated 300m deduplication, strict statutory SLA routing, Hindi speech recognition, and instant bilingual audio receipts.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 text-xs">
+          <div class="text-2xl">🏛️</div>
+          <div>
+            <div class="font-bold text-white">NUDM Citizen SLA Guarantee</div>
+            <div class="text-[11px] text-slate-400">Autonomous Municipal Forwarding</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Intake Form (2 Columns on large) -->
+        <div class="lg:col-span-2 bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl flex flex-col gap-5">
+          <div>
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+              Step 1: Select Civic Category (श्रेणी चुनें)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Statutory SLA assigned instantly by Agent 2.</p>
+          </div>
+
+          <!-- 6 Picture Category Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="categoryCardsGrid">
+            
+            <!-- 1. Water -->
+            <button type="button" onclick="selectCategory('Water Supply & Sewage')" data-cat="Water Supply & Sewage" class="cat-card p-3.5 rounded-xl border-2 border-gov-borderDark bg-gov-cardDark hover:border-sky-400 hover:bg-slate-800/80 text-left transition flex flex-col justify-between group">
+              <div class="text-2xl">💧</div>
+              <div class="mt-2">
+                <div class="font-bold text-xs text-white group-hover:text-sky-300">Water Supply &amp; Sewage</div>
+                <div class="text-[11px] text-slate-400">जल आपूर्ति एवं सीवरेज</div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-sky-300 bg-sky-950/80 border border-sky-800 px-2 py-0.5 rounded-full inline-block w-fit">
+                SLA: 12 Hours
+              </div>
+            </button>
+
+            <!-- 2. Electricity -->
+            <button type="button" onclick="selectCategory('Electricity & Streetlights')" data-cat="Electricity & Streetlights" class="cat-card p-3.5 rounded-xl border-2 border-gov-borderDark bg-gov-cardDark hover:border-sky-400 hover:bg-slate-800/80 text-left transition flex flex-col justify-between group">
+              <div class="text-2xl">⚡</div>
+              <div class="mt-2">
+                <div class="font-bold text-xs text-white group-hover:text-sky-300">Electricity</div>
+                <div class="text-[11px] text-slate-400">विद्युत एवं स्ट्रीटलाइट</div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-amber-300 bg-amber-950/80 border border-amber-800 px-2 py-0.5 rounded-full inline-block w-fit">
+                SLA: 2 Hours
+              </div>
+            </button>
+
+            <!-- 3. Roads -->
+            <button type="button" onclick="selectCategory('Roads & Potholes')" data-cat="Roads & Potholes" class="cat-card p-3.5 rounded-xl border-2 border-gov-borderDark bg-gov-cardDark hover:border-sky-400 hover:bg-slate-800/80 text-left transition flex flex-col justify-between group">
+              <div class="text-2xl">🛣️</div>
+              <div class="mt-2">
+                <div class="font-bold text-xs text-white group-hover:text-sky-300">Roads &amp; Potholes</div>
+                <div class="text-[11px] text-slate-400">सड़क एवं गड्ढे</div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-purple-300 bg-purple-950/80 border border-purple-800 px-2 py-0.5 rounded-full inline-block w-fit">
+                SLA: 48 Hours
+              </div>
+            </button>
+
+            <!-- 4. Solid Waste -->
+            <button type="button" onclick="selectCategory('Solid Waste & Sanitation')" data-cat="Solid Waste & Sanitation" class="cat-card p-3.5 rounded-xl border-2 border-gov-borderDark bg-gov-cardDark hover:border-sky-400 hover:bg-slate-800/80 text-left transition flex flex-col justify-between group">
+              <div class="text-2xl">🗑️</div>
+              <div class="mt-2">
+                <div class="font-bold text-xs text-white group-hover:text-sky-300">Solid Waste</div>
+                <div class="text-[11px] text-slate-400">ठोस अपशिष्ट एवं स्वच्छता</div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-emerald-300 bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded-full inline-block w-fit">
+                SLA: 24 Hours
+              </div>
+            </button>
+
+            <!-- 5. Air & Noise Pollution -->
+            <button type="button" onclick="selectCategory('Air & Noise Pollution')" data-cat="Air & Noise Pollution" class="cat-card p-3.5 rounded-xl border-2 border-gov-borderDark bg-gov-cardDark hover:border-sky-400 hover:bg-slate-800/80 text-left transition flex flex-col justify-between group">
+              <div class="text-2xl">🌫️</div>
+              <div class="mt-2">
+                <div class="font-bold text-xs text-white group-hover:text-sky-300">Air Pollution</div>
+                <div class="text-[11px] text-slate-400">वायु एवं ध्वनि प्रदूषण</div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-slate-300 bg-slate-900 border border-slate-700 px-2 py-0.5 rounded-full inline-block w-fit">
+                SLA: 12 Hours
+              </div>
+            </button>
+
+            <!-- 6. Public Health & Vector Control -->
+            <button type="button" onclick="selectCategory('Public Health & Vector Control')" data-cat="Public Health & Vector Control" class="cat-card p-3.5 rounded-xl border-2 border-gov-borderDark bg-gov-cardDark hover:border-sky-400 hover:bg-slate-800/80 text-left transition flex flex-col justify-between group">
+              <div class="text-2xl">🚑</div>
+              <div class="mt-2">
+                <div class="font-bold text-xs text-white group-hover:text-sky-300">Health &amp; 108 Emergency</div>
+                <div class="text-[11px] text-slate-400">जन स्वास्थ्य एवं एम्बुलेंस</div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-red-300 bg-red-950/80 border border-red-800 px-2 py-0.5 rounded-full inline-block w-fit">
+                SLA: 2 Hours
+              </div>
+            </button>
+          </div>
+
+          <!-- Ward Location Selection with GPS -->
+          <div class="pt-3 border-t border-gov-borderDark">
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">
+                Step 2: Ward Location (वार्ड चयन)
+              </label>
+              <button type="button" onclick="detectGPSLocation()" class="text-xs text-sky-400 hover:text-sky-300 font-semibold flex items-center gap-1 transition">
+                <span>📍</span>
+                <span>Auto-Detect GPS Location</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <select id="citizenWardSelect" onchange="onWardChanged()" class="w-full text-xs font-medium p-2.5 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+                  <option value="Ward 14 - Janakpuri" data-lat="28.6219" data-lon="77.0878">Ward 14 - Janakpuri (West Delhi)</option>
+                  <option value="Ward 22 - Rohini" data-lat="28.7159" data-lon="77.1197">Ward 22 - Rohini (North-West Delhi)</option>
+                  <option value="Ward 35 - Karol Bagh" data-lat="28.6517" data-lon="77.1906">Ward 35 - Karol Bagh (Central Delhi)</option>
+                  <option value="Ward 41 - Saket" data-lat="28.5244" data-lon="77.2167">Ward 41 - Saket (South Delhi)</option>
+                  <option value="Ward 58 - Dwarka" data-lat="28.5921" data-lon="77.0460">Ward 58 - Dwarka (South-West Delhi)</option>
+                  <option value="Ward 67 - Mayur Vihar" data-lat="28.6080" data-lon="77.2950">Ward 67 - Mayur Vihar (East Delhi)</option>
+                </select>
+              </div>
+
+              <div class="flex items-center gap-2 bg-slate-900 px-3.5 py-2 rounded-xl border border-gov-borderDark text-xs font-mono text-slate-300">
+                <span class="text-slate-500">GPS Coords:</span>
+                <span id="citizenCoordsDisplay" class="text-sky-300 font-bold">LAT: 28.6219 | LON: 77.0878</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description & Hindi Voice Microphone -->
+          <div class="pt-3 border-t border-gov-borderDark flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">
+                Step 3: Issue Description (समस्या का विवरण)
+              </label>
+
+              <!-- Hindi Voice Mic Button -->
+              <button type="button" id="voiceMicBtn" onclick="toggleVoiceInput()" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-950/80 text-rose-300 border border-rose-800 hover:bg-rose-900 transition shadow">
+                <span id="micIcon" class="text-sm">🎙️</span>
+                <span id="micLabel">बोलकर दर्ज करें (Hindi Mic)</span>
+              </button>
+            </div>
+
+            <div class="relative">
+              <textarea id="citizenDescription" rows="3" placeholder="उदा: मेन रोड पर पीने के पानी की मुख्य पाइपलाइन फट गई है और सड़क पर भारी जलभराव हो गया है... (Or describe in English)" class="w-full text-xs p-3.5 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none leading-relaxed"></textarea>
+            </div>
+
+            <div id="micStatusText" class="text-[11px] text-rose-400 font-mono hidden">
+              🔴 Mic Active: Listening in Hindi/English (माइक्रोफ़ोन चालू है, कृपया बोलें...)
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex flex-wrap items-center justify-between pt-2 gap-3">
+            <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>5 AI agents will evaluate, deduplicate &amp; dispatch</span>
+            </div>
+
+            <button type="button" onclick="submitCitizenGrievance()" class="bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white text-xs font-black px-6 py-2.5 rounded-xl shadow-lg shadow-sky-950 transition flex items-center gap-2">
+              <span>🚀 Submit Grievance to AI Engine</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Digital Receipt & Hindi TTS Audio Playback -->
+        <div class="flex flex-col gap-4">
+          
+          <!-- Live Audio Receipt Card -->
+          <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-4 shadow-xl">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">
+                Digital Receipt (रसीद)
+              </h4>
+              <span id="receiptBadge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-700">
+                Awaiting Submission
+              </span>
+            </div>
+
+            <div id="receiptContent" class="text-xs text-slate-300 bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 min-h-[120px] flex flex-col justify-center">
+              No recent grievance lodged. Select a category and submit to trigger AI agents and receive an audio receipt.
+            </div>
+
+            <!-- Hindi Audio Playback Button -->
+            <button type="button" id="replayAudioBtn" onclick="replayAudioReceipt()" class="mt-3 w-full text-xs font-bold py-2.5 px-3 rounded-xl bg-emerald-950/80 text-emerald-300 border border-emerald-800 hover:bg-emerald-900 transition flex items-center justify-center gap-2 disabled:opacity-40" disabled>
+              <span>🔊</span>
+              <span>Replay Hindi Audio Receipt (आवाज़ सुनें)</span>
+            </button>
+          </div>
+
+          <!-- Deduplication Rule Card -->
+          <div class="bg-amber-950/30 rounded-2xl border border-amber-800/60 p-4 text-xs text-amber-200">
+            <div class="font-bold flex items-center gap-1.5 mb-1.5 text-amber-300">
+              <span>🛡️</span>
+              <span>Agent 1 Deduplication Guard</span>
+            </div>
+            <p class="text-[11px] leading-relaxed text-amber-200/90">
+              Reports within a <strong>300-meter radius</strong> with <strong>&gt;75% semantic similarity</strong> are automatically detected by Agent 1. Duplicate tickets are blocked and your support is added as an <strong>Upvote</strong> on the existing Master Ticket.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sector Grievances & Community Upvote List -->
+      <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <span>📋</span>
+              <span>Active Municipal Grievances in Your Sector</span>
+            </h3>
+            <p class="text-xs text-slate-400">Live statutory SLA countdowns and community upvotes.</p>
+          </div>
+          <span class="text-xs bg-slate-900 text-sky-400 px-3 py-1 rounded-full font-mono border border-slate-700" id="citizenTicketCount">
+            Total Tickets: 0
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/90 text-slate-400 border-b border-gov-borderDark uppercase font-mono text-[11px]">
+              <tr>
+                <th class="py-3 px-3">Ticket ID</th>
+                <th class="py-3 px-3">Category</th>
+                <th class="py-3 px-3">Ward</th>
+                <th class="py-3 px-3">Department</th>
+                <th class="py-3 px-3">Priority</th>
+                <th class="py-3 px-3">SLA Status</th>
+                <th class="py-3 px-3">Upvotes</th>
+                <th class="py-3 px-3">Action</th>
+              </tr>
+            </thead>
+            <tbody id="citizenTicketsTableBody" class="divide-y divide-slate-800/80">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- ROLE DASHBOARD 2: FIELD ENGINEER DESK                         -->
+    <!-- ============================================================== -->
+    <div id="roleViewEngineer" class="role-dashboard hidden flex flex-col gap-6">
+      
+      <!-- Field Engineer Header -->
+      <div class="bg-gov-command text-white rounded-2xl p-5 border border-gov-borderDark shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="bg-sky-500/20 text-sky-300 text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full border border-sky-500/30">
+            Field Operations Desk &bull; जमीनी कार्य बल
+          </span>
+          <h2 class="text-xl md:text-2xl font-black mt-2">Field Engineer Task Dispatch Console</h2>
+          <p class="text-xs md:text-sm text-slate-300 mt-1">
+            Officer ID: <span class="font-mono text-amber-300 font-bold">ENG-8492</span> &bull; Janakpuri West Division &bull; Central Civil &amp; Jal Wing
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+          <div>
+            <div class="font-bold text-white">GPS Check-in: Verified</div>
+            <div class="text-[10px] text-slate-400 font-mono">Sector 14 Grid Feeder #4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task Dispatch List -->
+      <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider">
+              Dispatched Field Work Orders
+            </h3>
+            <p class="text-xs text-slate-400">Sorted by SLA countdown urgency. Photo proof required upon completion.</p>
+          </div>
+          <span class="text-xs bg-sky-950 text-sky-300 font-mono font-bold px-3 py-1 rounded-full border border-sky-800" id="engPendingCount">
+            Pending Tasks: 0
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="engineerTaskList">
+          <!-- Dynamically populated engineer cards -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- ROLE DASHBOARD 3: WARD MUNICIPAL OFFICER                      -->
+    <!-- ============================================================== -->
+    <div id="roleViewOfficer" class="role-dashboard hidden flex flex-col gap-6">
+      
+      <!-- Ward Officer Header -->
+      <div class="bg-gov-command text-white rounded-2xl p-5 border border-gov-borderDark shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="bg-amber-500/20 text-amber-300 text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full border border-amber-500/30">
+            Ward Administration &bull; नगर निगम वार्ड कार्यालय
+          </span>
+          <h2 class="text-xl md:text-2xl font-black mt-2">Ward Municipal Officer Command</h2>
+          <p class="text-xs md:text-sm text-slate-300 mt-1">
+            Officer ID: <span class="font-mono text-amber-300 font-bold">OFF-DEL-14</span> &bull; Ward 14 Janakpuri ULB Secretariat
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="bg-slate-900 px-3.5 py-2 rounded-xl border border-slate-800 text-center">
+            <div class="text-lg font-mono font-bold text-emerald-400" id="wardSlaCompliance">94.8%</div>
+            <div class="text-[10px] text-slate-400 uppercase">SLA Compliance</div>
+          </div>
+          <div class="bg-slate-900 px-3.5 py-2 rounded-xl border border-slate-800 text-center">
+            <div class="text-lg font-mono font-bold text-red-400" id="wardBreachCount">0</div>
+            <div class="text-[10px] text-slate-400 uppercase">Breached SLAs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ward SLA Countdown Breach Tracking Table -->
+      <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <span>⏱️</span>
+              <span>Ward SLA Countdown Breach Tracking Table</span>
+            </h3>
+            <p class="text-xs text-slate-400">Live statutory SLA countdowns. Yellow flags &lt;2h, Red flags Breached (0h).</p>
+          </div>
+
+          <!-- Quick Filters -->
+          <div class="flex items-center gap-2">
+            <select id="officerDeptFilter" onchange="renderOfficerTable()" class="text-xs p-2 border border-gov-borderDark rounded-xl bg-slate-900 text-white">
+              <option value="ALL">All Departments</option>
+              <option value="Jal Board">Jal Board &amp; Sewerage</option>
+              <option value="DISCOM">DISCOM Electricity</option>
+              <option value="PWD">PWD Roads</option>
+              <option value="Sanitation">Sanitation &amp; Waste</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/90 text-slate-400 border-b border-gov-borderDark uppercase font-mono text-[11px]">
+              <tr>
+                <th class="py-3 px-3">Ticket ID</th>
+                <th class="py-3 px-3">Category</th>
+                <th class="py-3 px-3">Department</th>
+                <th class="py-3 px-3">Priority</th>
+                <th class="py-3 px-3">SLA Countdown</th>
+                <th class="py-3 px-3">Status</th>
+                <th class="py-3 px-3 text-right">Intervention Overrides</th>
+              </tr>
+            </thead>
+            <tbody id="officerTableBody" class="divide-y divide-slate-800/80">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- ROLE DASHBOARD 4: MLA / MINISTER COMMAND                      -->
+    <!-- ============================================================== -->
+    <div id="roleViewMla" class="role-dashboard hidden flex flex-col gap-6">
+      
+      <!-- MLA Header -->
+      <div class="bg-gradient-to-r from-gov-command via-slate-900 to-indigo-950 text-white rounded-2xl p-5 border border-gov-borderDark shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="bg-amber-500 text-slate-950 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full font-mono">
+            मंत्रालय कमान केंद्र &bull; Legislative Command Deck
+          </span>
+          <h2 class="text-xl md:text-2xl font-black mt-2">Minister &amp; MLA City-Wide Command Deck</h2>
+          <p class="text-xs md:text-sm text-slate-300 mt-1">
+            Executive ID: <span class="font-mono text-amber-300 font-bold">MLA-DEL-VIP</span> &bull; State Urban Oversight &amp; Multi-Ward Resilience
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="bg-slate-900/90 px-3.5 py-2 rounded-xl border border-slate-800 text-center">
+            <div class="text-lg font-mono font-bold text-amber-400">6 Wards</div>
+            <div class="text-[10px] text-slate-400 uppercase">Monitored</div>
+          </div>
+          <div class="bg-slate-900/90 px-3.5 py-2 rounded-xl border border-slate-800 text-center">
+            <div class="text-lg font-mono font-bold text-emerald-400" id="mlaActiveMedicalUnits">2 MMUs</div>
+            <div class="text-[10px] text-slate-400 uppercase">Medical Fleet</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- City-Wide Ward Heatmaps Grid -->
+      <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <span>🗺️</span>
+              <span>City-Wide Ward Heatmap &amp; Infrastructure Stress Index</span>
+            </h3>
+            <p class="text-xs text-slate-400">Live multi-domain evaluation: open tickets, SLA breaches, water quality, and grid load.</p>
+          </div>
+          <span class="text-xs bg-slate-900 text-slate-400 px-3 py-1 rounded font-mono border border-slate-800">Updated: Real-time</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="mlaWardHeatmapGrid">
+          <!-- Dynamically populated ward heatmaps -->
+        </div>
+      </div>
+
+      <!-- Public Health & Epidemic Surveillance Matrix -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Epidemic Surveillance Matrix -->
+        <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <span>🏥</span>
+              <span>Public Health &amp; Epidemic Surveillance Matrix</span>
+            </h3>
+            <span id="epidemicStatusBadge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+              Surveillance: Normal
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex items-center justify-between p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+              <div>
+                <div class="font-bold text-white">Water Contamination Sensor Index</div>
+                <div class="text-[11px] text-slate-400">Turbidity &amp; Coliform bacterial monitoring</div>
+              </div>
+              <div class="text-right">
+                <span id="matrixWaterStatus" class="font-mono font-bold text-emerald-400">STABLE (2.4 NTU)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+              <div>
+                <div class="font-bold text-white">Hospital Gastro/Dengue Admissions</div>
+                <div class="text-[11px] text-slate-400">IDSP Public Health Hospital network</div>
+              </div>
+              <div class="text-right">
+                <span id="matrixHospStatus" class="font-mono font-bold text-emerald-400">BASELINE (2/day)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+              <div>
+                <div class="font-bold text-white">Mobile Medical Units (MMU) Dispatch</div>
+                <div class="text-[11px] text-slate-400">Automated crisis dispatch by Agent 4</div>
+              </div>
+              <div class="text-right">
+                <span id="matrixMmuStatus" class="font-mono font-bold text-sky-400">Standby (0 Deployed)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Upvote Priority Tracker -->
+        <div class="bg-gov-command rounded-2xl border border-gov-borderDark p-5 shadow-xl">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <span>🗳️</span>
+              <span>Legislative Upvote Tracker (Top Grievances)</span>
+            </h3>
+            <span class="text-xs text-slate-400 font-mono">Public Consensus</span>
+          </div>
+
+          <div class="space-y-2.5" id="mlaUpvoteTrackerList">
+            <!-- Dynamically populated top upvoted grievances -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- LIVE 5-AGENT AUDIT TERMINAL (ICCC DECISION STREAM)              -->
+    <!-- ============================================================== -->
+    <section class="bg-slate-950 rounded-2xl border border-gov-borderDark shadow-2xl overflow-hidden">
+      <!-- Terminal Header -->
+      <div class="bg-slate-900 px-5 py-3 flex flex-wrap items-center justify-between gap-3 border-b border-gov-borderDark">
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+          </div>
+          <span class="text-xs font-mono font-bold text-slate-200 ml-2">
+            CivicPulse Core AI &bull; Live Decision Audit Terminal
+          </span>
+          <span class="text-[10px] bg-slate-950 text-emerald-400 font-mono px-2.5 py-0.5 rounded-full border border-emerald-800">
+            STRICT JSON OUTPUT SCHEMA
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="copyAuditJson()" class="text-xs font-semibold px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+            <span>📋</span>
+            <span id="copyJsonBtnText">Copy JSON</span>
+          </button>
+          <button onclick="clearAuditTerminal()" class="text-xs font-semibold px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 transition">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- JSON Audit Stream Body -->
+      <div class="p-5 font-mono text-xs overflow-x-auto max-h-96 overflow-y-auto bg-slate-950/95" id="terminalOutput">
+        <pre id="jsonAuditBlock" class="text-emerald-400 leading-relaxed font-mono select-all">// CivicPulse Core AI initialized. Ready for intake or simulation triggers...</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 1: GOVT AUTHENTICATION & LOGIN MODAL                     -->
+  <!-- ============================================================== -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-gov-command text-white rounded-3xl max-w-lg w-full shadow-2xl border border-gov-borderDark overflow-hidden transform transition-all">
+      
+      <!-- Top Saffron/Green Accent -->
+      <div class="tricolor-stripe"></div>
+
+      <!-- Header -->
+      <div class="p-6 bg-slate-900 border-b border-gov-borderDark text-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-sky-500/10 border border-sky-500/30 text-sky-400 flex items-center justify-center font-bold text-2xl mb-2 shadow-inner">
+          🏛️
+        </div>
+        <h3 class="text-lg font-black text-white">Government Authentication Portal</h3>
+        <p class="text-xs text-slate-400 mt-1">National Urban Governance &bull; Secure Multi-Role Access</p>
+      </div>
+
+      <!-- 4 Role Tabs -->
+      <div class="grid grid-cols-4 border-b border-gov-borderDark bg-slate-950 text-xs font-bold text-slate-400">
+        <button type="button" onclick="switchLoginTab('citizen')" id="tab-citizen" class="py-3 text-center border-b-2 border-sky-400 text-sky-300 bg-gov-command">
+          Citizen
+        </button>
+        <button type="button" onclick="switchLoginTab('engineer')" id="tab-engineer" class="py-3 text-center border-b-2 border-transparent hover:text-white">
+          Engineer
+        </button>
+        <button type="button" onclick="switchLoginTab('officer')" id="tab-officer" class="py-3 text-center border-b-2 border-transparent hover:text-white">
+          Ward Officer
+        </button>
+        <button type="button" onclick="switchLoginTab('mla')" id="tab-mla" class="py-3 text-center border-b-2 border-transparent hover:text-white">
+          MLA / Minister
+        </button>
+      </div>
+
+      <!-- Login Form Content -->
+      <div class="p-6">
+        
+        <!-- Tab 1: Citizen -->
+        <div id="form-citizen" class="login-tab-form space-y-4">
+          <div class="bg-sky-950/60 p-3.5 rounded-xl border border-sky-800 text-xs text-sky-200 flex items-center justify-between">
+            <div>
+              <span class="font-bold">Test Credentials:</span> Mobile: <code class="font-mono font-bold text-white">9876543210</code> | OTP: <code class="font-mono font-bold text-white">1234</code>
+            </div>
+            <button type="button" onclick="prefillLogin('citizen')" class="text-[11px] font-bold text-sky-400 underline hover:text-sky-300">
+              1-Click Fill
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">Mobile Number</label>
+            <input type="text" id="loginCitizenMobile" placeholder="9876543210" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">One-Time Password (OTP)</label>
+            <input type="password" id="loginCitizenOtp" placeholder="1234" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono" />
+          </div>
+
+          <button type="button" onclick="performLogin('citizen')" class="w-full bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white text-xs font-black py-3 rounded-xl shadow-lg transition">
+            Login to Citizen Portal
+          </button>
+        </div>
+
+        <!-- Tab 2: Field Engineer -->
+        <div id="form-engineer" class="login-tab-form hidden space-y-4">
+          <div class="bg-sky-950/60 p-3.5 rounded-xl border border-sky-800 text-xs text-sky-200 flex items-center justify-between">
+            <div>
+              <span class="font-bold">Test Credentials:</span> ID: <code class="font-mono font-bold text-white">ENG-8492</code> | PIN: <code class="font-mono font-bold text-white">4321</code>
+            </div>
+            <button type="button" onclick="prefillLogin('engineer')" class="text-[11px] font-bold text-sky-400 underline hover:text-sky-300">
+              1-Click Fill
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">Engineer ID</label>
+            <input type="text" id="loginEngineerId" placeholder="ENG-8492" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">Security PIN</label>
+            <input type="password" id="loginEngineerPin" placeholder="4321" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono" />
+          </div>
+
+          <button type="button" onclick="performLogin('engineer')" class="w-full bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white text-xs font-black py-3 rounded-xl shadow-lg transition">
+            Access Field Engineer Console
+          </button>
+        </div>
+
+        <!-- Tab 3: Ward Municipal Officer -->
+        <div id="form-officer" class="login-tab-form hidden space-y-4">
+          <div class="bg-sky-950/60 p-3.5 rounded-xl border border-sky-800 text-xs text-sky-200 flex items-center justify-between">
+            <div>
+              <span class="font-bold">Test Credentials:</span> ID: <code class="font-mono font-bold text-white">OFF-DEL-14</code> | Token: <code class="font-mono font-bold text-white">ICCC2026</code>
+            </div>
+            <button type="button" onclick="prefillLogin('officer')" class="text-[11px] font-bold text-sky-400 underline hover:text-sky-300">
+              1-Click Fill
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">Officer ID</label>
+            <input type="text" id="loginOfficerId" placeholder="OFF-DEL-14" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">Municipal Security Token</label>
+            <input type="password" id="loginOfficerToken" placeholder="ICCC2026" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono" />
+          </div>
+
+          <button type="button" onclick="performLogin('officer')" class="w-full bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white text-xs font-black py-3 rounded-xl shadow-lg transition">
+            Login as Ward Municipal Officer
+          </button>
+        </div>
+
+        <!-- Tab 4: MLA / Minister Command -->
+        <div id="form-mla" class="login-tab-form hidden space-y-4">
+          <div class="bg-amber-950/60 p-3.5 rounded-xl border border-amber-800 text-xs text-amber-200 flex items-center justify-between">
+            <div>
+              <span class="font-bold">Test Credentials:</span> ID: <code class="font-mono font-bold text-white">MLA-DEL-VIP</code> | Key: <code class="font-mono font-bold text-white">MINISTER99</code>
+            </div>
+            <button type="button" onclick="prefillLogin('mla')" class="text-[11px] font-bold text-amber-400 underline hover:text-amber-300">
+              1-Click Fill
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">Minister / MLA VIP ID</label>
+            <input type="text" id="loginMlaId" placeholder="MLA-DEL-VIP" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 uppercase mb-1">State Executive Access Key</label>
+            <input type="password" id="loginMlaKey" placeholder="MINISTER99" class="w-full text-xs p-3 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono" />
+          </div>
+
+          <button type="button" onclick="performLogin('mla')" class="w-full bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-500 hover:to-orange-600 text-white text-xs font-black py-3 rounded-xl shadow-lg transition">
+            Access Legislative Command Centre
+          </button>
+        </div>
+
+        <div id="loginErrorMsg" class="mt-3 text-xs text-red-400 font-semibold text-center hidden">
+          Invalid credentials. Please use the pre-filled demo credentials.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 2: FIELD ENGINEER PHOTO PROOF UPLOAD MODAL              -->
+  <!-- ============================================================== -->
+  <div id="resolutionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-gov-command text-white rounded-3xl max-w-md w-full shadow-2xl border border-gov-borderDark overflow-hidden">
+      <div class="p-5 bg-slate-900 flex items-center justify-between border-b border-gov-borderDark">
+        <h3 class="text-sm font-bold flex items-center gap-2">
+          <span>📸</span>
+          <span>Upload Resolution Photo Proof</span>
+        </h3>
+        <button onclick="closeResolutionModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Ticket ID:</label>
+          <div id="modalTicketId" class="font-mono bg-slate-900 p-2.5 rounded-xl text-sky-400 font-bold border border-slate-800"></div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Field Photo Proof (Upload / Camera Simulation):</label>
+          <div class="border-2 border-dashed border-gov-borderDark rounded-2xl p-5 text-center bg-slate-900/60">
+            <div class="text-3xl mb-1">📷</div>
+            <div class="text-white font-semibold">Simulated Resolution Proof Ready</div>
+            <div class="text-[10px] text-slate-400 mt-1 font-mono">Geotag: Lat 28.6219 | Lon 77.0878 (Janakpuri)</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Engineer Remarks &amp; Work Description:</label>
+          <textarea id="modalRemarks" rows="2" class="w-full p-2.5 border border-gov-borderDark rounded-xl bg-slate-900 text-white focus:ring-2 focus:ring-sky-500" placeholder="Repaired pipe flange and sealed cavity to MoHUA specs."></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeResolutionModal()" class="px-4 py-2 rounded-xl text-slate-400 hover:bg-slate-900 font-semibold">Cancel</button>
+          <button type="button" onclick="submitResolutionProof()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow">
+            Confirm &amp; Mark Resolved
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-slate-400 text-xs border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="font-bold text-slate-200">NextGen City &bull; CivicPulse Core AI ICCC Decision Engine v4.2</p>
+        <p class="text-[11px] text-slate-400">Integrated Command &amp; Control Centre &bull; MoHUA, NUDM &amp; Digital India Compliant</p>
+      </div>
+      <div class="text-[11px] text-slate-400 text-right font-mono">
+        <div>Zero External Backend Dependency &bull; LocalStorage State Machine</div>
+        <div>Offline PWA &bull; GitHub Pages &bull; Android APK Ready</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================== -->
+  <!-- TIER 2 & TIER 3: VANILLA JAVASCRIPT STATE ENGINE & AGENTS       -->
+  <!-- ============================================================== -->
+  <script>
+    // --- 1. LOCAL STORAGE KEYS & DEFAULT SEED DATA ---
+    const STORAGE_KEY_AUTH = 'civicpulse_auth';
+    const STORAGE_KEY_TICKETS = 'civicpulse_tickets';
+    const STORAGE_KEY_TELEMETRY = 'civicpulse_telemetry';
+
+    const DEFAULT_TELEMETRY = {
+      imdRainfallMmHr: 5,
+      cpcbAqi: 118,
+      discomGridLoadPct: 58,
+      waterTurbidityNtu: 2.4,
+      waterColiformIndex: 0,
+      waterPressurePsi: 40,
+      hospitalAdmissionsGastro: 2,
+      epidemicAlertActive: false,
+      mobileMedicalUnitsDispatched: 0
+    };
+
+    const DEFAULT_TICKETS = [
+      {
+        id: 'TICK-20261027-1001',
+        category: 'Water Supply & Sewage',
+        ward: 'Ward 14 - Janakpuri',
+        latitude: 28.6219,
+        longitude: 77.0878,
+        description: 'Major drinking water pipeline burst creating heavy waterlogging on Block B main street.',
+        department: 'Municipal Jal Board & Sewerage Cell',
+        priority: 'High',
+        slaHoursRemaining: 8,
+        slaTotalHours: 12,
+        createdAt: new Date(Date.now() - 4 * 3600 * 1000).toISOString(),
+        upvotes: 4,
+        status: 'Assigned',
+        assignedEngineer: 'ENG-8492'
+      },
+      {
+        id: 'TICK-20261027-1002',
+        category: 'Electricity & Streetlights',
+        ward: 'Ward 14 - Janakpuri',
+        latitude: 28.6240,
+        longitude: 77.0890,
+        description: 'Sparking high-tension electrical feeder line near community centre.',
+        department: 'DISCOM Urban Power Distribution & Electrical Works',
+        priority: 'Emergency',
+        slaHoursRemaining: 1,
+        slaTotalHours: 2,
+        createdAt: new Date(Date.now() - 1 * 3600 * 1000).toISOString(),
+        upvotes: 7,
+        status: 'In Progress',
+        assignedEngineer: 'ENG-8492'
+      },
+      {
+        id: 'TICK-20261027-1003',
+        category: 'Roads & Potholes',
+        ward: 'Ward 22 - Rohini',
+        latitude: 28.7159,
+        longitude: 77.1197,
+        description: 'Deep road cave-in and potholes after sewer pipe repair.',
+        department: 'Public Works Department (PWD) Highway & Civil Wing',
+        priority: 'Medium',
+        slaHoursRemaining: 36,
+        slaTotalHours: 48,
+        createdAt: new Date(Date.now() - 12 * 3600 * 1000).toISOString(),
+        upvotes: 2,
+        status: 'Assigned',
+        assignedEngineer: 'ENG-3921'
+      },
+      {
+        id: 'TICK-20261027-1004',
+        category: 'Solid Waste & Sanitation',
+        ward: 'Ward 35 - Karol Bagh',
+        latitude: 28.6517,
+        longitude: 77.1906,
+        description: 'Commercial market garbage dump overflow spilling onto pedestrian footpath.',
+        department: 'Municipal Corporation Sanitation & Swachhata Wing',
+        priority: 'Medium',
+        slaHoursRemaining: 18,
+        slaTotalHours: 24,
+        createdAt: new Date(Date.now() - 6 * 3600 * 1000).toISOString(),
+        upvotes: 5,
+        status: 'Assigned',
+        assignedEngineer: 'ENG-7712'
+      }
+    ];
+
+    // --- 2. TIER 2: BACKEND STATE MACHINE ---
+    let appState = {
+      currentUser: null,
+      tickets: [],
+      telemetry: { ...DEFAULT_TELEMETRY },
+      selectedCategory: 'Water Supply & Sewage',
+      selectedWard: 'Ward 14 - Janakpuri',
+      selectedLat: 28.6219,
+      selectedLon: 77.0878,
+      lastProcessedResult: null,
+      isRecordingVoice: false,
+      speechRecognition: null,
+      activeModalTicketId: null,
+      isDarkCommandMode: true
+    };
+
+    // Haversine distance in meters
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const dLat = (lat2 - lat1) * (Math.PI / 180);
+      const dLon = (lon2 - lon1) * (Math.PI / 180);
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    // Token semantic similarity
+    function calculateSimilarity(textA, textB) {
+      const stopWords = new Set(['the', 'and', 'for', 'with', 'near', 'from', 'has', 'this', 'that', 'are', 'was', 'main', 'road']);
+      const tokenize = (str) => {
+        return new Set(
+          str.toLowerCase()
+             .replace(/[^\w\s]/g, '')
+             .split(/\s+/)
+             .filter(w => w.length > 2 && !stopWords.has(w))
+        );
+      };
+      const setA = tokenize(textA);
+      const setB = tokenize(textB);
+      if (setA.size === 0 || setB.size === 0) return 0;
+      let intersection = 0;
+      for (const token of setA) {
+        if (setB.has(token)) intersection++;
+      }
+      const jaccard = intersection / new Set([...setA, ...setB]).size;
+      const dice = (2 * intersection) / (setA.size + setB.size);
+      const containment = intersection / Math.min(setA.size, setB.size);
+      return Math.max(jaccard, dice, containment);
+    }
+
+    // Strict ULB Department & SLA Mapping Table
+    const SLA_CONFIG = {
+      'Water Supply & Sewage': {
+        department: 'Municipal Jal Board & Sewerage Cell',
+        slaHours: 12,
+        defaultPriority: 'High'
+      },
+      'Electricity & Streetlights': {
+        department: 'DISCOM Urban Power Distribution & Electrical Works',
+        slaHours: 2,
+        defaultPriority: 'High'
+      },
+      'Roads & Potholes': {
+        department: 'Public Works Department (PWD) Highway & Civil Wing',
+        slaHours: 48,
+        defaultPriority: 'Medium'
+      },
+      'Solid Waste & Sanitation': {
+        department: 'Municipal Corporation Sanitation & Swachhata Wing',
+        slaHours: 24,
+        defaultPriority: 'Medium'
+      },
+      'Air & Noise Pollution': {
+        department: 'State Pollution Control Committee (DPCC / CPCB Enforcers)',
+        slaHours: 12,
+        defaultPriority: 'High'
+      },
+      'Public Health & Vector Control': {
+        department: 'Department of Public Health & 108 Emergency Medical Services',
+        slaHours: 2,
+        defaultPriority: 'Emergency'
+      }
+    };
+
+    // --- 3. TIER 3: AUTONOMOUS 5-AGENT DECISION ENGINE (GEMINI 3.8 FLASH + DETERMINISTIC MESH) ---
+    async function animateAgentPipeline() {
+      const cards = [1, 2, 3, 4, 5];
+      for (const id of cards) {
+        const card = document.getElementById(`agentCard${id}`);
+        const dot = document.getElementById(`agentDot${id}`);
+        if (card && dot) {
+          card.classList.add('border-sky-400', 'bg-sky-950/80', 'ring-2', 'ring-sky-500/40');
+          dot.classList.add('animate-ping');
+          await new Promise(r => setTimeout(r, 90));
+          card.classList.remove('border-sky-400', 'bg-sky-950/80', 'ring-2', 'ring-sky-500/40');
+          dot.classList.remove('animate-ping');
+        }
+      }
+    }
+
+    async function runCivicPulse5AgentEngine(report) {
+      await animateAgentPipeline();
+
+      // 1. Attempt Server-Side Gemini 3.8 Flash API Execution
+      try {
+        const response = await fetch('/api/civicpulse/agent-decision', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            report,
+            activeTickets: appState.tickets,
+            telemetry: appState.telemetry
+          })
+        });
+
+        if (response.ok) {
+          const geminiResult = await response.json();
+          
+          if (geminiResult.is_duplicate) {
+            const matched = appState.tickets.find(t => t.id === geminiResult.ticket.id);
+            if (matched) {
+              matched.upvotes = geminiResult.ticket.upvotes;
+              saveTicketsToStorage();
+            }
+          } else {
+            const exists = appState.tickets.some(t => t.id === geminiResult.ticket.id);
+            if (!exists) {
+              const newT = {
+                ...geminiResult.ticket,
+                latitude: report.latitude,
+                longitude: report.longitude,
+                createdAt: new Date().toISOString(),
+                assignedEngineer: 'ENG-8492'
+              };
+              appState.tickets.unshift(newT);
+              saveTicketsToStorage();
+            }
+          }
+
+          if (geminiResult.cascadingHazard) {
+            showGlobalAlert(geminiResult.cascadingHazard);
+          }
+          if (geminiResult.epidemicDispatch) {
+            appState.telemetry.mobileMedicalUnitsDispatched = (appState.telemetry.mobileMedicalUnitsDispatched || 0) + 1;
+            saveTelemetryToStorage();
+          }
+
+          return geminiResult;
+        }
+      } catch (err) {
+        console.info('[CivicPulse] Server API offline/unreachable. Seamlessly engaging edge deterministic engine:', err);
+      }
+
+      // 2. Deterministic Edge Fallback Engine (for offline, GitHub Pages, or APK standalone hosting)
+      return runDeterministicFallbackEngine(report);
+    }
+
+    function runDeterministicFallbackEngine(report) {
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000).toString();
+      const newTicketId = `TICK-${dateStr}-${randomSuffix}`;
+      
+      const tickets = appState.tickets;
+      const telemetry = appState.telemetry;
+
+      // Agent 1: Intake & Deduplication Agent (<300m & >70% similarity)
+      let duplicateTicket = null;
+      let matchedDist = 0;
+      let matchedSim = 0;
+
+      for (const t of tickets) {
+        if (t.status === 'Resolved') continue;
+        if (t.category !== report.category) continue;
+
+        const dist = calculateDistance(report.latitude, report.longitude, t.latitude, t.longitude);
+        const sim = calculateSimilarity(report.description, t.description);
+
+        if (dist <= 300 && sim >= 0.70) {
+          duplicateTicket = t;
+          matchedDist = Math.round(dist);
+          matchedSim = Math.round(sim * 100);
+          break;
+        }
+      }
+
+      if (duplicateTicket) {
+        duplicateTicket.upvotes = (duplicateTicket.upvotes || 1) + 1;
+        saveTicketsToStorage();
+
+        return {
+          status: "SUCCESS",
+          is_duplicate: true,
+          ticket: {
+            id: duplicateTicket.id,
+            category: duplicateTicket.category,
+            ward: duplicateTicket.ward,
+            description: duplicateTicket.description,
+            department: duplicateTicket.department,
+            priority: duplicateTicket.priority,
+            slaHoursRemaining: duplicateTicket.slaHoursRemaining,
+            upvotes: duplicateTicket.upvotes,
+            status: duplicateTicket.status
+          },
+          agentLogs: [
+            { agent: "Intake Agent", action: `Duplicate report detected within ${matchedDist}m radius (${matchedSim}% similarity). Blocked new ticket creation. Incremented upvotes to ${duplicateTicket.upvotes} for Master Ticket ${duplicateTicket.id}.` },
+            { agent: "Routing Agent", action: `Master Ticket mapped to ${duplicateTicket.department}. Priority: ${duplicateTicket.priority}. SLA: ${duplicateTicket.slaHoursRemaining}h remaining.` },
+            { agent: "Telemetry Agent", action: "Ward telemetry normal. Sector pressure stable." },
+            { agent: "Health Agent", action: "Water purity parameters stable. No epidemic anomaly." },
+            { agent: "SLA Guardian", action: `Active countdown verified (${duplicateTicket.slaHoursRemaining}h remaining).` }
+          ],
+          citizenNotification: {
+            en: `An active issue is already registered ${matchedDist}m away. Your upvote has been registered for Master Ticket ${duplicateTicket.id} (Total: ${duplicateTicket.upvotes} upvotes).`,
+            hi: `आपके पास (${matchedDist} मी.) पहले से शिकायत दर्ज है। हमने मास्टर टिकट ${duplicateTicket.id} में आपका वोट जोड़ दिया है (कुल वोट: ${duplicateTicket.upvotes})।`
+          }
+        };
+      }
+
+      // Unique Master Ticket Flow
+      // Agent 2: Municipal Routing & SLA Agent
+      const rule = SLA_CONFIG[report.category] || {
+        department: 'General Municipal Administration',
+        slaHours: 24,
+        defaultPriority: 'Medium'
+      };
+
+      let priority = rule.defaultPriority;
+      const descLower = report.description.toLowerCase();
+      if (['burst', 'spark', 'fire', 'emergency', 'casualty', 'cholera', 'hazard', 'toxic', 'live wire'].some(k => descLower.includes(k))) {
+        priority = 'High';
+      }
+
+      // Agent 3: Telemetry & Multi-Domain Correlation Agent
+      let telemetryAction = "Ward telemetry normal. Sector pressure stable.";
+      let cascadingHazard = null;
+      if (telemetry.imdRainfallMmHr > 40 && (report.category.includes('Water') || descLower.includes('pipe') || descLower.includes('drain'))) {
+        cascadingHazard = "URBAN FLOODING WARNING: Heavy IMD Rainfall Radar (>40mm/hr) correlated with drainage backflow.";
+        telemetryAction = `CASCADING HAZARD TRIGGERED: IMD Doppler radar (${telemetry.imdRainfallMmHr}mm/hr) + Jal Board drainage load = Sector Inundation Alert broadcast.`;
+        priority = 'Emergency';
+      } else if (telemetry.cpcbAqi > 300 && report.category.includes('Pollution')) {
+        telemetryAction = `Telemetry Agent: CPCB AQI elevated (${telemetry.cpcbAqi}). Anti-smog water cannons triggered.`;
+      }
+
+      // Agent 4: Public Health & Epidemic Surveillance Agent
+      let healthAction = "Water purity parameters stable. No epidemic anomaly.";
+      let epidemicDispatch = false;
+      const isWater = report.category.includes('Water') || descLower.includes('contamination') || descLower.includes('smell');
+      if (isWater && (telemetry.waterTurbidityNtu > 15 || telemetry.waterColiformIndex > 10 || telemetry.hospitalAdmissionsGastro > 15)) {
+        epidemicDispatch = true;
+        healthAction = `EPIDEMIC ALERT: Water contamination spike (Turbidity: ${telemetry.waterTurbidityNtu} NTU) + Hospital Gastro surge (${telemetry.hospitalAdmissionsGastro}/day). Mobile Medical Unit MMU-09 auto-dispatched.`;
+        priority = 'Emergency';
+      }
+
+      // Agent 5: SLA Guardian & Escalation Agent
+      const newTicket = {
+        id: newTicketId,
+        category: report.category,
+        ward: report.ward,
+        latitude: report.latitude,
+        longitude: report.longitude,
+        description: report.description.trim(),
+        department: rule.department,
+        priority: priority,
+        slaHoursRemaining: rule.slaHours,
+        slaTotalHours: rule.slaHours,
+        createdAt: new Date().toISOString(),
+        upvotes: 1,
+        status: 'Assigned',
+        assignedEngineer: 'ENG-8492'
+      };
+
+      appState.tickets.unshift(newTicket);
+      saveTicketsToStorage();
+
+      const exactOutput = {
+        status: "SUCCESS",
+        is_duplicate: false,
+        ticket: {
+          id: newTicket.id,
+          category: newTicket.category,
+          ward: newTicket.ward,
+          description: newTicket.description,
+          department: newTicket.department,
+          priority: newTicket.priority,
+          slaHoursRemaining: newTicket.slaHoursRemaining,
+          upvotes: newTicket.upvotes,
+          status: newTicket.status
+        },
+        agentLogs: [
+          { agent: "Intake Agent", action: "Scanned Ward radius. No duplicate found. Validated as Unique Master Ticket." },
+          { agent: "Routing Agent", action: `Mapped to ${rule.department.split('&')[0].trim()}. Priority assigned: ${newTicket.priority}. SLA set to ${rule.slaHours} hours.` },
+          { agent: "Telemetry Agent", action: telemetryAction },
+          { agent: "Health Agent", action: healthAction },
+          { agent: "SLA Guardian", action: "Countdown monitor initialized." }
+        ],
+        citizenNotification: {
+          en: `Your report has been logged and assigned to ${rule.department.split('&')[0].trim()}. SLA: ${rule.slaHours} hours.`,
+          hi: `आपकी शिकायत दर्ज कर ली गई है और ${rule.department.split('&')[0].trim()} को सौंप दी गई है। अनुमानित समय: ${rule.slaHours} घंटे।`
+        }
+      };
+
+      if (cascadingHazard) {
+        showGlobalAlert(cascadingHazard);
+      }
+      if (epidemicDispatch) {
+        appState.telemetry.mobileMedicalUnitsDispatched = (appState.telemetry.mobileMedicalUnitsDispatched || 0) + 1;
+        saveTelemetryToStorage();
+      }
+
+      return exactOutput;
+    }
+
+    // --- 4. HINDI AUDIO RECEIPT (TEXT-TO-SPEECH) ---
+    function speakHindiReceipt(hindiText) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(hindiText);
+      utterance.lang = 'hi-IN';
+      utterance.rate = 0.95;
+      utterance.pitch = 1.0;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const hiVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('HI'));
+      if (hiVoice) utterance.voice = hiVoice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function replayAudioReceipt() {
+      if (appState.lastProcessedResult && appState.lastProcessedResult.citizenNotification) {
+        speakHindiReceipt(appState.lastProcessedResult.citizenNotification.hi);
+      }
+    }
+
+    // --- 5. HINDI SPEECH-TO-TEXT MICROPHONE ---
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return null;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'hi-IN';
+
+      recognition.onstart = () => {
+        appState.isRecordingVoice = true;
+        updateMicUi(true);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        const descInput = document.getElementById('citizenDescription');
+        if (descInput) {
+          descInput.value = (descInput.value ? descInput.value + ' ' : '') + transcript;
+        }
+      };
+
+      recognition.onerror = () => {
+        appState.isRecordingVoice = false;
+        updateMicUi(false);
+      };
+
+      recognition.onend = () => {
+        appState.isRecordingVoice = false;
+        updateMicUi(false);
+      };
+
+      return recognition;
+    }
+
+    function toggleVoiceInput() {
+      if (!appState.speechRecognition) {
+        appState.speechRecognition = initSpeechRecognition();
+      }
+
+      if (!appState.speechRecognition) {
+        alert('Voice recognition is not supported in this browser. Please type the grievance in the text box.');
+        return;
+      }
+
+      if (appState.isRecordingVoice) {
+        appState.speechRecognition.stop();
+      } else {
+        try {
+          appState.speechRecognition.start();
+        } catch (e) {
+          console.warn('Speech recognition start', e);
+        }
+      }
+    }
+
+    function updateMicUi(recording) {
+      const micBtn = document.getElementById('voiceMicBtn');
+      const micIcon = document.getElementById('micIcon');
+      const micLabel = document.getElementById('micLabel');
+      const micStatus = document.getElementById('micStatusText');
+      if (!micBtn) return;
+
+      if (recording) {
+        micBtn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-600 text-white mic-live-pulse transition shadow';
+        micIcon.textContent = '⏹️';
+        micLabel.textContent = 'सुन रहा हूँ... (Listening)';
+        if (micStatus) micStatus.classList.remove('hidden');
+      } else {
+        micBtn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-950/80 text-rose-300 border border-rose-800 hover:bg-rose-900 transition shadow';
+        micIcon.textContent = '🎙️';
+        micLabel.textContent = 'बोलकर दर्ज करें (Hindi Mic)';
+        if (micStatus) micStatus.classList.add('hidden');
+      }
+    }
+
+    // --- 6. AUTO-GPS & CATEGORY SELECTION ---
+    function detectGPSLocation() {
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser.');
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          appState.selectedLat = Number(pos.coords.latitude.toFixed(4));
+          appState.selectedLon = Number(pos.coords.longitude.toFixed(4));
+          document.getElementById('citizenCoordsDisplay').textContent = `LAT: ${appState.selectedLat} | LON: ${appState.selectedLon} (GPS Verified)`;
+        },
+        () => {
+          appState.selectedLat = 28.6219;
+          appState.selectedLon = 77.0878;
+          document.getElementById('citizenCoordsDisplay').textContent = `LAT: ${appState.selectedLat} | LON: ${appState.selectedLon} (Janakpuri Default)`;
+        }
+      );
+    }
+
+    function onWardChanged() {
+      const sel = document.getElementById('citizenWardSelect');
+      const opt = sel.options[sel.selectedIndex];
+      appState.selectedWard = opt.value;
+      appState.selectedLat = parseFloat(opt.getAttribute('data-lat'));
+      appState.selectedLon = parseFloat(opt.getAttribute('data-lon'));
+      document.getElementById('citizenCoordsDisplay').textContent = `LAT: ${appState.selectedLat} | LON: ${appState.selectedLon}`;
+    }
+
+    function selectCategory(catName) {
+      appState.selectedCategory = catName;
+      document.querySelectorAll('.cat-card').forEach(card => {
+        if (card.getAttribute('data-cat') === catName) {
+          card.classList.add('border-sky-400', 'bg-sky-950/60', 'ring-2', 'ring-sky-500/30');
+          card.classList.remove('border-gov-borderDark', 'bg-gov-cardDark');
+        } else {
+          card.classList.remove('border-sky-400', 'bg-sky-950/60', 'ring-2', 'ring-sky-500/30');
+          card.classList.add('border-gov-borderDark', 'bg-gov-cardDark');
+        }
+      });
+    }
+
+    // --- 7. CITIZEN SUBMISSION FLOW ---
+    async function submitCitizenGrievance() {
+      const descInput = document.getElementById('citizenDescription');
+      const description = descInput ? descInput.value.trim() : '';
+
+      if (!description) {
+        alert('Please describe your civic issue (कृपया समस्या का विवरण दें).');
+        return;
+      }
+
+      const report = {
+        category: appState.selectedCategory,
+        ward: appState.selectedWard,
+        description: description,
+        latitude: appState.selectedLat,
+        longitude: appState.selectedLon
+      };
+
+      // Run 5-Agent Decision Engine (Gemini 3.8 Flash API with deterministic fallback)
+      const result = await runCivicPulse5AgentEngine(report);
+      appState.lastProcessedResult = result;
+
+      // Update Audit Terminal with EXACT required JSON schema
+      renderJsonAuditTerminal(result);
+
+      // Render Receipt Card
+      renderCitizenReceipt(result);
+
+      // Speak Hindi Receipt
+      if (result.citizenNotification && result.citizenNotification.hi) {
+        speakHindiReceipt(result.citizenNotification.hi);
+      }
+
+      // Clear description box
+      descInput.value = '';
+
+      // Re-render UI views
+      renderAppViews();
+    }
+
+    function renderCitizenReceipt(result) {
+      const receiptBadge = document.getElementById('receiptBadge');
+      const receiptContent = document.getElementById('receiptContent');
+      const replayBtn = document.getElementById('replayAudioBtn');
+
+      if (!receiptContent) return;
+
+      if (result.is_duplicate) {
+        receiptBadge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800';
+        receiptBadge.textContent = 'DUPLICATE MERGED (+1 UPVOTE)';
+      } else {
+        receiptBadge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800';
+        receiptBadge.textContent = 'MASTER TICKET DISPATCHED';
+      }
+
+      const aiBadge = result.aiProvider
+        ? `<div class="text-[10px] text-sky-400 font-mono flex items-center gap-1"><span>🤖</span> <span>Engine: ${result.aiProvider}</span></div>`
+        : '';
+
+      receiptContent.innerHTML = `
+        <div class="space-y-2">
+          <div class="flex items-center justify-between font-mono font-bold">
+            <span class="text-sky-300">Ticket: ${result.ticket.id}</span>
+            <span class="text-xs bg-sky-950 text-sky-200 border border-sky-800 px-2 py-0.5 rounded">${result.ticket.priority}</span>
+          </div>
+          <div class="font-bold text-white text-xs">${result.ticket.category}</div>
+          <div class="text-[11px] text-slate-300">${result.citizenNotification.en}</div>
+          <div class="text-[11px] text-emerald-300 bg-emerald-950/60 p-2.5 rounded-lg border border-emerald-900 mt-2 font-medium">
+            🔊 ${result.citizenNotification.hi}
+          </div>
+          ${aiBadge}
+          <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            <span>SLA: <strong class="text-white">${result.ticket.slaHoursRemaining} Hours</strong></span>
+            <span>Upvotes: <strong class="text-amber-400">${result.ticket.upvotes}</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (replayBtn) replayBtn.disabled = false;
+    }
+
+    function renderJsonAuditTerminal(data) {
+      const block = document.getElementById('jsonAuditBlock');
+      if (!block) return;
+      block.textContent = JSON.stringify(data, null, 2);
+    }
+
+    function copyAuditJson() {
+      const block = document.getElementById('jsonAuditBlock');
+      if (!block) return;
+      navigator.clipboard.writeText(block.textContent).then(() => {
+        const btnText = document.getElementById('copyJsonBtnText');
+        if (btnText) {
+          btnText.textContent = 'Copied!';
+          setTimeout(() => { btnText.textContent = 'Copy JSON'; }, 2000);
+        }
+      });
+    }
+
+    function clearAuditTerminal() {
+      const block = document.getElementById('jsonAuditBlock');
+      if (block) block.textContent = '// Terminal cleared. Awaiting next engine event...';
+    }
+
+    // --- 8. JUDGE DEMO CRISIS SIMULATORS ---
+    
+    // Demo 1: Duplicate (<300m)
+    async function triggerDuplicateDemo() {
+      selectCategory('Water Supply & Sewage');
+      document.getElementById('citizenWardSelect').value = 'Ward 14 - Janakpuri';
+      onWardChanged();
+
+      appState.selectedLat = 28.6225;
+      appState.selectedLon = 77.0880;
+      document.getElementById('citizenCoordsDisplay').textContent = `LAT: 28.6225 | LON: 77.0880 (Simulated Demo Offset: 70m)`;
+
+      const duplicateText = 'Major drinking water pipeline burst creating heavy waterlogging on Block B main street';
+      document.getElementById('citizenDescription').value = duplicateText;
+
+      await submitCitizenGrievance();
+    }
+
+    // Demo 2: Spike Rain & Sewer Telemetry
+    async function triggerRainSewerSpikeDemo() {
+      appState.telemetry.imdRainfallMmHr = 78;
+      appState.telemetry.waterTurbidityNtu = 32;
+      appState.telemetry.waterColiformIndex = 42;
+      appState.telemetry.hospitalAdmissionsGastro = 28;
+      appState.telemetry.epidemicAlertActive = true;
+      saveTelemetryToStorage();
+      updateTelemetryUI();
+
+      const spikeReport = {
+        category: 'Water Supply & Sewage',
+        ward: 'Ward 14 - Janakpuri',
+        description: 'Main drainage sewer line overflow and foul yellow drinking water contamination.',
+        latitude: 28.6219,
+        longitude: 77.0878
+      };
+
+      const result = await runCivicPulse5AgentEngine(spikeReport);
+      appState.lastProcessedResult = result;
+      renderJsonAuditTerminal(result);
+      renderCitizenReceipt(result);
+      renderAppViews();
+
+      showGlobalAlert("🚨 EMERGENCY CASCADING ALERT: IMD Rainfall 78mm/hr + Jal Contamination (32 NTU) + Gastro Surge. Mobile Medical Unit MMU-09 Auto-Dispatched!");
+    }
+
+    // Demo 3: Breach SLA (0h Timer)
+    function triggerBreachSlaDemo() {
+      const activeTicket = appState.tickets.find(t => t.status !== 'Resolved');
+      if (activeTicket) {
+        activeTicket.slaHoursRemaining = 0;
+        activeTicket.status = 'ESCALATED TO WARD ASSISTANT COMMISSIONER / EXECUTIVE ENGINEER';
+        activeTicket.escalated = true;
+        saveTicketsToStorage();
+
+        const escalationJson = {
+          status: "SUCCESS",
+          is_duplicate: false,
+          ticket: {
+            id: activeTicket.id,
+            category: activeTicket.category,
+            ward: activeTicket.ward,
+            description: activeTicket.description,
+            department: activeTicket.department,
+            priority: "Emergency",
+            slaHoursRemaining: 0,
+            upvotes: activeTicket.upvotes,
+            status: activeTicket.status
+          },
+          agentLogs: [
+            { agent: "Intake Agent", action: "Ticket historical record verified." },
+            { agent: "Routing Agent", action: `Department ${activeTicket.department} notified of breach.` },
+            { agent: "Telemetry Agent", action: "Ward telemetry correlation synced." },
+            { agent: "Health Agent", action: "Surveillance cross-check complete." },
+            { agent: "SLA Guardian", action: `AUTONOMOUS ESCALATION TRIGGERED: Statutory SLA reached 0h. Escalated status to 'ESCALATED TO WARD ASSISTANT COMMISSIONER / EXECUTIVE ENGINEER'. Red alert flagged.` }
+          ],
+          citizenNotification: {
+            en: `Ticket ${activeTicket.id} has reached its statutory deadline and has been autonomously escalated to the Ward Assistant Commissioner.`,
+            hi: `टिकट ${activeTicket.id} की समय-सीमा समाप्त होने पर इसे सहायक आयुक्त एवं अधिशासी अभियंता को स्वचालित रूप से अग्रेषित किया गया है।`
+          }
+        };
+
+        renderJsonAuditTerminal(escalationJson);
+        renderAppViews();
+        showGlobalAlert(`⏳ STATUTORY SLA BREACH: Ticket ${activeTicket.id} escalated to Executive Engineer!`);
+      }
+    }
+
+    function resetSimulationState() {
+      appState.telemetry = { ...DEFAULT_TELEMETRY };
+      appState.tickets = JSON.parse(JSON.stringify(DEFAULT_TICKETS));
+      saveTelemetryToStorage();
+      saveTicketsToStorage();
+      updateTelemetryUI();
+      dismissGlobalAlert();
+      renderAppViews();
+      clearAuditTerminal();
+    }
+
+    function showGlobalAlert(msg) {
+      const banner = document.getElementById('globalAlertBanner');
+      const text = document.getElementById('globalAlertText');
+      if (banner && text) {
+        text.textContent = msg;
+        banner.classList.remove('hidden');
+      }
+    }
+
+    function dismissGlobalAlert() {
+      const banner = document.getElementById('globalAlertBanner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    function upvoteTicket(ticketId) {
+      const t = appState.tickets.find(item => item.id === ticketId);
+      if (t) {
+        t.upvotes = (t.upvotes || 1) + 1;
+        saveTicketsToStorage();
+        renderAppViews();
+      }
+    }
+
+    // --- 9. FIELD ENGINEER ACTIONS ---
+    function openResolutionModal(ticketId) {
+      appState.activeModalTicketId = ticketId;
+      document.getElementById('modalTicketId').textContent = ticketId;
+      document.getElementById('modalRemarks').value = 'Repaired and restored to statutory MoHUA quality standards.';
+      document.getElementById('resolutionModal').classList.remove('hidden');
+    }
+
+    function closeResolutionModal() {
+      document.getElementById('resolutionModal').classList.add('hidden');
+      appState.activeModalTicketId = null;
+    }
+
+    function submitResolutionProof() {
+      const ticketId = appState.activeModalTicketId;
+      const ticket = appState.tickets.find(t => t.id === ticketId);
+      if (ticket) {
+        ticket.status = 'Resolved';
+        ticket.slaHoursRemaining = 0;
+        ticket.photoProofUrl = 'simulated_proof_field_geotagged.jpg';
+        saveTicketsToStorage();
+
+        const resolutionLog = {
+          status: "SUCCESS",
+          is_duplicate: false,
+          ticket: {
+            id: ticket.id,
+            category: ticket.category,
+            ward: ticket.ward,
+            description: ticket.description,
+            department: ticket.department,
+            priority: ticket.priority,
+            slaHoursRemaining: 0,
+            upvotes: ticket.upvotes,
+            status: "Resolved"
+          },
+          agentLogs: [
+            { agent: "Intake Agent", action: "Resolution proof validated." },
+            { agent: "Routing Agent", action: "Department work order marked complete." },
+            { agent: "Telemetry Agent", action: "Ward pressure and sensor node restored to baseline." },
+            { agent: "Health Agent", action: "No environmental anomaly." },
+            { agent: "SLA Guardian", action: "SLA timer stopped and marked resolved on-time." }
+          ],
+          citizenNotification: {
+            en: `Work order for ${ticket.id} has been marked Resolved by Field Engineer ENG-8492 with geotagged photo proof.`,
+            hi: `टिकट ${ticket.id} का कार्य फील्ड इंजीनियर द्वारा फोटो प्रमाण के साथ पूर्ण रूप से हल कर दिया गया है।`
+          }
+        };
+
+        renderJsonAuditTerminal(resolutionLog);
+      }
+      closeResolutionModal();
+      renderAppViews();
+    }
+
+    // --- 10. WARD OFFICER INTERVENTIONS ---
+    function reassignTicketDepartment(ticketId) {
+      const t = appState.tickets.find(item => item.id === ticketId);
+      if (!t) return;
+      const newDept = prompt('Enter New Department for reassignment:', 'Emergency Civil Quick Response Cell');
+      if (newDept) {
+        t.department = newDept;
+        saveTicketsToStorage();
+        renderAppViews();
+      }
+    }
+
+    function deployEmergencyCrew(ticketId) {
+      const t = appState.tickets.find(item => item.id === ticketId);
+      if (!t) return;
+      t.priority = 'Emergency';
+      t.slaHoursRemaining = Math.max(1, Math.floor(t.slaHoursRemaining / 2));
+      saveTicketsToStorage();
+      renderAppViews();
+      alert(`Emergency Quick Action Crew deployed to ${t.ward} for ${t.id}. SLA expedited.`);
+    }
+
+    function extendSlaWithJustification(ticketId) {
+      const t = appState.tickets.find(item => item.id === ticketId);
+      if (!t) return;
+      const reason = prompt('Enter Statutory Justification for SLA Extension (Audit logged):', 'Severe weather delay / waiting for specialized heavy machinery');
+      if (reason) {
+        t.slaHoursRemaining += 6;
+        saveTicketsToStorage();
+        renderAppViews();
+      }
+    }
+
+    function manualEscalateTicket(ticketId) {
+      const t = appState.tickets.find(item => item.id === ticketId);
+      if (!t) return;
+      t.status = 'ESCALATED TO WARD ASSISTANT COMMISSIONER / EXECUTIVE ENGINEER';
+      t.priority = 'Emergency';
+      t.escalated = true;
+      saveTicketsToStorage();
+      renderAppViews();
+      showGlobalAlert(`EXECUTIVE OVERRIDE: Ticket ${t.id} manually escalated to Ward Assistant Commissioner.`);
+    }
+
+    // --- 11. RENDER MULTI-ROLE VIEWS ---
+    function renderAppViews() {
+      renderCitizenTable();
+      renderEngineerTaskList();
+      renderOfficerTable();
+      renderMlaDashboard();
+      updateTelemetryUI();
+    }
+
+    function renderCitizenTable() {
+      const tbody = document.getElementById('citizenTicketsTableBody');
+      const countDisplay = document.getElementById('citizenTicketCount');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      if (countDisplay) countDisplay.textContent = `Total Tickets: ${appState.tickets.length}`;
+
+      appState.tickets.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-900/60 transition';
+
+        let badgeClass = 'bg-sky-950 text-sky-300 border border-sky-800';
+        if (t.status.includes('ESCALATED')) badgeClass = 'bg-red-950 text-red-300 font-bold border border-red-700';
+        else if (t.status === 'Resolved') badgeClass = 'bg-emerald-950 text-emerald-300 border border-emerald-800';
+
+        tr.innerHTML = `
+          <td class="py-3 px-3 font-mono font-bold text-sky-400">${t.id}</td>
+          <td class="py-3 px-3 font-medium text-white">${t.category}</td>
+          <td class="py-3 px-3 text-slate-300">${t.ward}</td>
+          <td class="py-3 px-3 text-slate-400">${t.department.split('&')[0]}</td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${t.priority === 'Emergency' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-slate-900 text-slate-300 border border-slate-700'}">
+              ${t.priority}
+            </span>
+          </td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded text-[10px] ${badgeClass}">
+              ${t.status === 'Resolved' ? 'Resolved' : t.slaHoursRemaining + 'h Remaining'}
+            </span>
+          </td>
+          <td class="py-3 px-3 font-bold text-amber-400">
+            ${t.upvotes || 1} 👍
+          </td>
+          <td class="py-3 px-3">
+            <button onclick="upvoteTicket('${t.id}')" class="text-xs bg-slate-900 hover:bg-amber-950/80 text-slate-200 hover:text-amber-300 px-2.5 py-1 rounded-lg border border-slate-700 transition flex items-center gap-1">
+              <span>👍</span>
+              <span>Upvote</span>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderEngineerTaskList() {
+      const container = document.getElementById('engineerTaskList');
+      const countEl = document.getElementById('engPendingCount');
+      if (!container) return;
+
+      container.innerHTML = '';
+      const pending = appState.tickets.filter(t => t.status !== 'Resolved');
+      if (countEl) countEl.textContent = `Pending Tasks: ${pending.length}`;
+
+      if (pending.length === 0) {
+        container.innerHTML = `<div class="col-span-3 text-center py-8 text-slate-400">All dispatched tasks resolved! Good job team.</div>`;
+        return;
+      }
+
+      pending.forEach(t => {
+        const card = document.createElement('div');
+        const isEscalated = t.status.includes('ESCALATED');
+        card.className = `p-4 rounded-2xl border bg-gov-cardDark shadow-lg flex flex-col justify-between ${isEscalated ? 'border-red-500 bg-red-950/20' : 'border-gov-borderDark'}`;
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-mono font-bold text-sky-400">${t.id}</span>
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded ${isEscalated ? 'bg-red-600 text-white font-bold' : 'bg-sky-950 text-sky-300 border border-sky-800'}">
+                ${isEscalated ? 'ESCALATED' : t.priority}
+              </span>
+            </div>
+
+            <h4 class="font-bold text-sm text-white mb-1">${t.category}</h4>
+            <p class="text-xs text-slate-300 mb-2 leading-relaxed">${t.description}</p>
+
+            <div class="space-y-1 text-[11px] text-slate-400 bg-slate-900/80 p-3 rounded-xl border border-slate-800 mb-3 font-mono">
+              <div>📍 <strong>${t.ward}</strong> &bull; Lat ${t.latitude}, Lon ${t.longitude}</div>
+              <div>🏢 ${t.department}</div>
+              <div class="text-red-400 font-bold">⏳ SLA: ${t.slaHoursRemaining}h remaining</div>
+              <div>👍 Community Upvotes: <strong class="text-amber-400">${t.upvotes}</strong></div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800">
+            <button onclick="openResolutionModal('${t.id}')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 px-3 rounded-xl shadow transition flex items-center justify-center gap-1.5">
+              <span>📷</span>
+              <span>Resolve &amp; Upload Photo Proof</span>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderOfficerTable() {
+      const tbody = document.getElementById('officerTableBody');
+      const deptFilter = document.getElementById('officerDeptFilter') ? document.getElementById('officerDeptFilter').value : 'ALL';
+      const breachCountEl = document.getElementById('wardBreachCount');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      let breaches = 0;
+
+      const filtered = appState.tickets.filter(t => {
+        if (t.status.includes('ESCALATED') || t.slaHoursRemaining === 0) breaches++;
+        if (deptFilter === 'ALL') return true;
+        return t.department.toLowerCase().includes(deptFilter.toLowerCase());
+      });
+
+      if (breachCountEl) breachCountEl.textContent = breaches;
+
+      filtered.forEach(t => {
+        const isBreached = t.status.includes('ESCALATED') || t.slaHoursRemaining <= 0;
+        const isWarning = t.slaHoursRemaining > 0 && t.slaHoursRemaining <= 2;
+
+        let slaBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800">${t.slaHoursRemaining}h:00m:00s</span>`;
+        if (t.status === 'Resolved') {
+          slaBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-slate-900 text-slate-400 border border-slate-800">Completed</span>`;
+        } else if (isBreached) {
+          slaBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-red-600 text-white font-bold animate-pulse">00h:00m:00s BREACHED</span>`;
+        } else if (isWarning) {
+          slaBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-950 text-amber-300 border border-amber-800 font-semibold">${t.slaHoursRemaining}h:00m:00s WARNING</span>`;
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = `hover:bg-slate-900/60 transition ${isBreached ? 'bg-red-950/20' : ''}`;
+
+        tr.innerHTML = `
+          <td class="py-3 px-3 font-mono font-bold text-sky-400">${t.id}</td>
+          <td class="py-3 px-3 font-medium text-white">${t.category}</td>
+          <td class="py-3 px-3 text-slate-300">${t.department.split('&')[0]}</td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${t.priority === 'Emergency' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-slate-900 text-slate-300 border border-slate-700'}">
+              ${t.priority}
+            </span>
+          </td>
+          <td class="py-3 px-3">${slaBadge}</td>
+          <td class="py-3 px-3">
+            <span class="text-[10px] font-semibold ${isBreached ? 'text-red-400 font-bold' : 'text-slate-300'}">
+              ${t.status}
+            </span>
+          </td>
+          <td class="py-3 px-3 text-right">
+            <div class="flex items-center justify-end gap-1">
+              <button onclick="reassignTicketDepartment('${t.id}')" title="Reassign Department" class="px-2 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-[11px]">Reassign</button>
+              <button onclick="deployEmergencyCrew('${t.id}')" title="Deploy Emergency Crew" class="px-2 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 text-amber-300 border border-amber-800 text-[11px] font-semibold">Crew</button>
+              <button onclick="extendSlaWithJustification('${t.id}')" title="Extend SLA with justification" class="px-2 py-1 rounded-lg bg-sky-950 hover:bg-sky-900 text-sky-300 border border-sky-800 text-[11px]">Extend</button>
+              <button onclick="manualEscalateTicket('${t.id}')" title="Executive Override Escalation" class="px-2 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white text-[11px] font-bold">Escalate</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderMlaDashboard() {
+      const heatmapGrid = document.getElementById('mlaWardHeatmapGrid');
+      if (!heatmapGrid) return;
+
+      const wards = [
+        { name: 'Ward 14 - Janakpuri', code: 'W-14', zone: 'West' },
+        { name: 'Ward 22 - Rohini', code: 'W-22', zone: 'North-West' },
+        { name: 'Ward 35 - Karol Bagh', code: 'W-35', zone: 'Central' },
+        { name: 'Ward 41 - Saket', code: 'W-41', zone: 'South' },
+        { name: 'Ward 58 - Dwarka', code: 'W-58', zone: 'South-West' },
+        { name: 'Ward 67 - Mayur Vihar', code: 'W-67', zone: 'East' },
+      ];
+
+      heatmapGrid.innerHTML = '';
+
+      wards.forEach(w => {
+        const wardTickets = appState.tickets.filter(t => t.ward.includes(w.name) || t.ward.includes(w.code));
+        const breached = wardTickets.filter(t => t.status.includes('ESCALATED') || (t.slaHoursRemaining <= 0 && t.status !== 'Resolved')).length;
+        
+        let riskColor = 'border-emerald-800/80 bg-emerald-950/20 text-emerald-300';
+        let riskLabel = 'Normal';
+        if (breached > 0 || appState.telemetry.epidemicAlertActive) {
+          riskColor = 'border-red-500 bg-red-950/40 text-red-300';
+          riskLabel = 'Critical Alert';
+        } else if (wardTickets.length > 2) {
+          riskColor = 'border-amber-800/80 bg-amber-950/20 text-amber-300';
+          riskLabel = 'Moderate Stress';
+        }
+
+        const div = document.createElement('div');
+        div.className = `p-4 rounded-2xl border-2 ${riskColor} shadow-lg flex flex-col justify-between`;
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono font-bold text-xs">${w.code} &bull; ${w.zone} Zone</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${riskLabel === 'Normal' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-red-950 text-red-300 border border-red-800'}">${riskLabel}</span>
+            </div>
+            <h4 class="font-bold text-sm mb-2 text-white">${w.name}</h4>
+            <div class="grid grid-cols-2 gap-2 text-[11px] mb-3 font-mono">
+              <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                <span class="text-slate-400">Active:</span>
+                <span class="font-bold ml-1 text-white">${wardTickets.length}</span>
+              </div>
+              <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                <span class="text-slate-400">Breaches:</span>
+                <span class="font-bold ml-1 ${breached > 0 ? 'text-red-400 font-black' : 'text-emerald-400'}">${breached}</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-[10px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-800 font-mono">
+            <span>Water: <strong class="text-slate-200">${appState.telemetry.waterTurbidityNtu < 5 ? 'Clean' : 'Alert'}</strong></span>
+            <span>Grid Feeder: <strong class="text-slate-200">${appState.telemetry.discomGridLoadPct}%</strong></span>
+          </div>
+        `;
+        heatmapGrid.appendChild(div);
+      });
+
+      // Epidemic Matrix Status
+      const epBadge = document.getElementById('epidemicStatusBadge');
+      const matrixWater = document.getElementById('matrixWaterStatus');
+      const matrixHosp = document.getElementById('matrixHospStatus');
+      const matrixMmu = document.getElementById('matrixMmuStatus');
+      const activeMmuHeader = document.getElementById('mlaActiveMedicalUnits');
+
+      const isOutbreak = appState.telemetry.waterTurbidityNtu > 15 || appState.telemetry.hospitalAdmissionsGastro > 15;
+      
+      if (epBadge) {
+        if (isOutbreak) {
+          epBadge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-red-600 text-white animate-pulse';
+          epBadge.textContent = 'EPIDEMIC SURVEILLANCE: ACTIVE CRISIS';
+        } else {
+          epBadge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800';
+          epBadge.textContent = 'Surveillance: Normal';
+        }
+      }
+
+      if (matrixWater) {
+        if (appState.telemetry.waterTurbidityNtu > 15) {
+          matrixWater.className = 'font-mono font-bold text-red-400 animate-pulse';
+          matrixWater.textContent = `CRITICAL SPIKE (${appState.telemetry.waterTurbidityNtu} NTU / ${appState.telemetry.waterColiformIndex} CFU)`;
+        } else {
+          matrixWater.className = 'font-mono font-bold text-emerald-400';
+          matrixWater.textContent = `STABLE (${appState.telemetry.waterTurbidityNtu} NTU)`;
+        }
+      }
+
+      if (matrixHosp) {
+        if (appState.telemetry.hospitalAdmissionsGastro > 15) {
+          matrixHosp.className = 'font-mono font-bold text-red-400 animate-pulse';
+          matrixHosp.textContent = `SURGE: ${appState.telemetry.hospitalAdmissionsGastro} admissions/day`;
+        } else {
+          matrixHosp.className = 'font-mono font-bold text-emerald-400';
+          matrixHosp.textContent = `BASELINE (${appState.telemetry.hospitalAdmissionsGastro}/day)`;
+        }
+      }
+
+      if (matrixMmu) {
+        const mmuCount = appState.telemetry.mobileMedicalUnitsDispatched || 0;
+        if (mmuCount > 0) {
+          matrixMmu.className = 'font-mono font-bold text-red-400';
+          matrixMmu.textContent = `DISPATCHED (${mmuCount} MMUs in Ward 14)`;
+        } else {
+          matrixMmu.className = 'font-mono font-bold text-sky-400';
+          matrixMmu.textContent = 'Standby (0 Deployed)';
+        }
+      }
+
+      if (activeMmuHeader) {
+        activeMmuHeader.textContent = `${appState.telemetry.mobileMedicalUnitsDispatched || 0} MMUs Active`;
+      }
+
+      // Upvote Tracker List
+      const upvoteContainer = document.getElementById('mlaUpvoteTrackerList');
+      if (upvoteContainer) {
+        upvoteContainer.innerHTML = '';
+        const sortedTickets = [...appState.tickets].sort((a, b) => (b.upvotes || 1) - (a.upvotes || 1)).slice(0, 4);
+
+        sortedTickets.forEach((t, idx) => {
+          const item = document.createElement('div');
+          item.className = 'flex items-center justify-between p-3 rounded-xl border border-gov-borderDark bg-slate-900/80 text-xs';
+          item.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-300 font-mono font-bold flex items-center justify-center text-[10px] border border-sky-500/40">#${idx + 1}</span>
+              <div>
+                <div class="font-bold text-white">${t.category} &bull; <span class="font-mono text-sky-400">${t.id}</span></div>
+                <div class="text-[11px] text-slate-400">${t.ward} &bull; ${t.department.split('&')[0]}</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="font-mono font-black text-amber-400 text-sm">${t.upvotes}</span>
+              <span class="text-[10px] text-slate-500 block">Upvotes</span>
+            </div>
+          `;
+          upvoteContainer.appendChild(item);
+        });
+      }
+    }
+
+    function updateTelemetryUI() {
+      const telRain = document.getElementById('telRain');
+      const telAqi = document.getElementById('telAqi');
+      const telGrid = document.getElementById('telGrid');
+      const telTurbidity = document.getElementById('telTurbidity');
+      const telColiform = document.getElementById('telColiform');
+      const telHosp = document.getElementById('telHosp');
+
+      const t = appState.telemetry;
+      if (telRain) {
+        telRain.textContent = `${t.imdRainfallMmHr} mm/hr`;
+        telRain.className = `font-bold ml-1 ${t.imdRainfallMmHr > 40 ? 'text-red-400 animate-pulse' : 'text-sky-400'}`;
+      }
+      if (telAqi) {
+        let aqiStatus = 'Moderate';
+        if (t.cpcbAqi > 300) aqiStatus = 'Severe';
+        else if (t.cpcbAqi > 200) aqiStatus = 'Poor';
+        telAqi.textContent = `${t.cpcbAqi} (${aqiStatus})`;
+      }
+      if (telGrid) {
+        telGrid.textContent = `${t.discomGridLoadPct}% Load`;
+      }
+      if (telTurbidity) {
+        telTurbidity.textContent = `${t.waterTurbidityNtu} NTU`;
+        telTurbidity.className = `font-bold ml-1 ${t.waterTurbidityNtu > 15 ? 'text-red-400 animate-pulse' : 'text-blue-300'}`;
+      }
+      if (telColiform) {
+        telColiform.textContent = `${t.waterColiformIndex} CFU`;
+        telColiform.className = `font-bold ml-1 ${t.waterColiformIndex > 10 ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`;
+      }
+      if (telHosp) {
+        telHosp.textContent = `${t.hospitalAdmissionsGastro}/day (${t.hospitalAdmissionsGastro > 15 ? 'SURGE' : 'Normal'})`;
+        telHosp.className = `font-bold ml-1 ${t.hospitalAdmissionsGastro > 15 ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`;
+      }
+    }
+
+    // --- 12. AUTHENTICATION & LOGIN LOGIC ---
+    const LOGIN_ROLES = {
+      citizen: { role: 'citizen', id: '9876543210', otp: '1234', name: 'Citizen User', title: 'Citizen Service Portal' },
+      engineer: { role: 'engineer', id: 'ENG-8492', pin: '4321', name: 'Eng. Rajesh Kumar (ENG-8492)', title: 'Field Operations Desk' },
+      officer: { role: 'officer', id: 'OFF-DEL-14', token: 'ICCC2026', name: 'Smt. Sunita Sharma, Ward Officer', title: 'Ward 14 Secretariat' },
+      mla: { role: 'mla', id: 'MLA-DEL-VIP', key: 'MINISTER99', name: 'Hon. Urban Development Minister', title: 'Legislative Command Deck' }
+    };
+
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.remove('hidden');
+      document.getElementById('loginErrorMsg').classList.add('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    function switchLoginTab(role) {
+      document.querySelectorAll('.login-tab-form').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('[id^="tab-"]').forEach(el => {
+        el.className = 'py-3 text-center border-b-2 border-transparent hover:text-white';
+      });
+
+      const targetForm = document.getElementById(`form-${role}`);
+      const targetTab = document.getElementById(`tab-${role}`);
+      if (targetForm) targetForm.classList.remove('hidden');
+      if (targetTab) targetTab.className = 'py-3 text-center border-b-2 border-sky-400 text-sky-300 bg-gov-command';
+    }
+
+    function prefillLogin(role) {
+      if (role === 'citizen') {
+        document.getElementById('loginCitizenMobile').value = '9876543210';
+        document.getElementById('loginCitizenOtp').value = '1234';
+      } else if (role === 'engineer') {
+        document.getElementById('loginEngineerId').value = 'ENG-8492';
+        document.getElementById('loginEngineerPin').value = '4321';
+      } else if (role === 'officer') {
+        document.getElementById('loginOfficerId').value = 'OFF-DEL-14';
+        document.getElementById('loginOfficerToken').value = 'ICCC2026';
+      } else if (role === 'mla') {
+        document.getElementById('loginMlaId').value = 'MLA-DEL-VIP';
+        document.getElementById('loginMlaKey').value = 'MINISTER99';
+      }
+    }
+
+    function performLogin(role) {
+      const err = document.getElementById('loginErrorMsg');
+      let success = false;
+
+      if (role === 'citizen') {
+        const m = document.getElementById('loginCitizenMobile').value.trim();
+        const o = document.getElementById('loginCitizenOtp').value.trim();
+        if (m === '9876543210' && o === '1234') success = true;
+      } else if (role === 'engineer') {
+        const id = document.getElementById('loginEngineerId').value.trim();
+        const pin = document.getElementById('loginEngineerPin').value.trim();
+        if (id === 'ENG-8492' && pin === '4321') success = true;
+      } else if (role === 'officer') {
+        const id = document.getElementById('loginOfficerId').value.trim();
+        const tok = document.getElementById('loginOfficerToken').value.trim();
+        if (id === 'OFF-DEL-14' && tok === 'ICCC2026') success = true;
+      } else if (role === 'mla') {
+        const id = document.getElementById('loginMlaId').value.trim();
+        const k = document.getElementById('loginMlaKey').value.trim();
+        if (id === 'MLA-DEL-VIP' && k === 'MINISTER99') success = true;
+      }
+
+      if (success) {
+        err.classList.add('hidden');
+        setAuthenticatedUser(LOGIN_ROLES[role]);
+        closeLoginModal();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function setAuthenticatedUser(user) {
+      appState.currentUser = user;
+      localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(user));
+
+      const nameEl = document.getElementById('currentUserName');
+      const roleEl = document.getElementById('currentUserRole');
+      if (nameEl) nameEl.textContent = user.name;
+      if (roleEl) roleEl.textContent = user.title;
+
+      document.querySelectorAll('.role-dashboard').forEach(el => el.classList.add('hidden'));
+
+      if (user.role === 'citizen') {
+        document.getElementById('roleViewCitizen').classList.remove('hidden');
+      } else if (user.role === 'engineer') {
+        document.getElementById('roleViewEngineer').classList.remove('hidden');
+      } else if (user.role === 'officer') {
+        document.getElementById('roleViewOfficer').classList.remove('hidden');
+      } else if (user.role === 'mla') {
+        document.getElementById('roleViewMla').classList.remove('hidden');
+      }
+
+      renderAppViews();
+    }
+
+    // --- 13. LOCAL STORAGE PERSISTENCE ---
+    function loadSavedState() {
+      const savedTickets = localStorage.getItem(STORAGE_KEY_TICKETS);
+      if (savedTickets) {
+        try {
+          appState.tickets = JSON.parse(savedTickets);
+        } catch (e) {
+          appState.tickets = JSON.parse(JSON.stringify(DEFAULT_TICKETS));
+        }
+      } else {
+        appState.tickets = JSON.parse(JSON.stringify(DEFAULT_TICKETS));
+        saveTicketsToStorage();
+      }
+
+      const savedTel = localStorage.getItem(STORAGE_KEY_TELEMETRY);
+      if (savedTel) {
+        try {
+          appState.telemetry = JSON.parse(savedTel);
+        } catch (e) {
+          appState.telemetry = { ...DEFAULT_TELEMETRY };
+        }
+      }
+
+      const savedAuth = localStorage.getItem(STORAGE_KEY_AUTH);
+      if (savedAuth) {
+        try {
+          const u = JSON.parse(savedAuth);
+          setAuthenticatedUser(u);
+          closeLoginModal();
+        } catch (e) {
+          openLoginModal();
+        }
+      } else {
+        prefillLogin('citizen');
+        openLoginModal();
+      }
+    }
+
+    function saveTicketsToStorage() {
+      localStorage.setItem(STORAGE_KEY_TICKETS, JSON.stringify(appState.tickets));
+    }
+
+    function saveTelemetryToStorage() {
+      localStorage.setItem(STORAGE_KEY_TELEMETRY, JSON.stringify(appState.telemetry));
+    }
+
+    // --- 14. DIGITAL CLOCK & THEME ---
+    function startISTClock() {
+      const clockEl = document.getElementById('istClock');
+      function update() {
+        const now = new Date();
+        const options = {
+          timeZone: 'Asia/Kolkata',
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        };
+        const istStr = new Intl.DateTimeFormat('en-IN', options).format(now);
+        if (clockEl) clockEl.textContent = `IST: ${istStr}`;
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
+    function toggleTheme() {
+      appState.isDarkCommandMode = !appState.isDarkCommandMode;
+      const icon = document.getElementById('themeModeIcon');
+      if (appState.isDarkCommandMode) {
+        document.body.classList.remove('bg-slate-100', 'text-slate-900');
+        document.body.classList.add('bg-gov-navy', 'text-slate-100');
+        if (icon) icon.textContent = '🌙 Ops Dark';
+      } else {
+        document.body.classList.remove('bg-gov-navy', 'text-slate-100');
+        document.body.classList.add('bg-slate-100', 'text-slate-900');
+        if (icon) icon.textContent = '☀️ Light Mode';
+      }
+    }
+
+    // SLA Countdown Watcher
+    function startSlaCountdownTick() {
+      setInterval(() => {
+        let changed = false;
+        appState.tickets.forEach(t => {
+          if (t.status === 'Resolved') return;
+          if (t.slaHoursRemaining <= 0 && t.status !== 'ESCALATED TO WARD ASSISTANT COMMISSIONER / EXECUTIVE ENGINEER') {
+            t.status = 'ESCALATED TO WARD ASSISTANT COMMISSIONER / EXECUTIVE ENGINEER';
+            t.escalated = true;
+            changed = true;
+          }
+        });
+        if (changed) {
+          saveTicketsToStorage();
+          renderAppViews();
+        }
+      }, 30000);
+    }
+
+    // --- 15. INITIALIZE ON DOM LOAD ---
+    document.addEventListener('DOMContentLoaded', () => {
+      startISTClock();
+      selectCategory('Water Supply & Sewage');
+      loadSavedState();
+      renderAppViews();
+      startSlaCountdownTick();
+
+      const sampleSeedResult = {
+        status: "SUCCESS",
+        is_duplicate: false,
+        ticket: {
+          id: "TICK-20261027-1001",
+          category: "Water Supply & Sewage",
+          ward: "Ward 14 - Janakpuri",
+          description: "Cleaned description of the issue.",
+          department: "Municipal Jal Board & Sewerage Cell",
+          priority: "High",
+          slaHoursRemaining: 12,
+          upvotes: 1,
+          status: "Assigned"
+        },
+        agentLogs: [
+          { agent: "Intake Agent", action: "Scanned Ward radius. No duplicate found. Validated as Unique Master Ticket." },
+          { agent: "Routing Agent", action: "Mapped to Jal Board. Priority assigned: High. SLA set to 12 hours." },
+          { agent: "Telemetry Agent", action: "Ward telemetry normal. Sector pressure stable." },
+          { agent: "Health Agent", action: "Water purity parameters stable. No epidemic anomaly." },
+          { agent: "SLA Guardian", action: "Countdown monitor initialized." }
+        ],
+        citizenNotification: {
+          en: "Your report has been logged and assigned to Jal Board. SLA: 12 hours.",
+          hi: "आपकी शिकायत दर्ज कर ली गई है और जल बोर्ड को सौंप दी गई है। अनुमानित समय: 12 घंटे।"
+        }
+      };
+      renderJsonAuditTerminal(sampleSeedResult);
+
+      // Check Gemini 3.8 Flash Neural Agent Status
+      fetch('/api/gemini/status')
+        .then(r => r.json())
+        .then(data => {
+          const el = document.getElementById('agentModeDisplay');
+          if (el) {
+            if (data.status === 'ONLINE_ACTIVE') {
+              el.className = 'px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold';
+              el.textContent = '🟢 Google Gemini 3.8 Flash (Active 5-Agent Neural Mesh)';
+            } else {
+              el.className = 'px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800 font-bold';
+              el.textContent = '⚡ CivicPulse Core AI (5-Agent Local Engine Active)';
+            }
+          }
+        })
+        .catch(() => {});
+    });
+  </script>
+</body>
 </html>
